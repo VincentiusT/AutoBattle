@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
+  m_Name: lutungKasarung
+  m_EditorClassIdentifier: 
+  name: lutungKasarung
+  artwork: {fileID: 21300000, guid: 96b63a4e5c510654991c51965dada206, type: 3}
+  deckArtwork: {fileID: 21300000, guid: 96b63a4e5c510654991c51965dada206, type: 3}
+  cost: 20
+  health: 200
+  speed: 3
+  attack: 10
+  attackSpeed: 1
+  attackRadius: 2
+  spawnTime: 1
+  type: 1
