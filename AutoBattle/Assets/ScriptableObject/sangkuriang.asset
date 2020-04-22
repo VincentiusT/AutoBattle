@@ -18,8 +18,8 @@ MonoBehaviour:
   cost: 30
   health: 200
   speed: 3
-  attack: 10
+  attack: 200
   attackSpeed: 1
-  attackRadius: 2
+  attackRadius: 8
   spawnTime: 1
   type: 1

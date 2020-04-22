@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : Unit
 {
     public Identity enemyIdentity;
-    public Transform mainTarget;
+    public List<GameObject> towers;
     public LayerMask playerMask;
 
     private Collider[] players;
@@ -25,7 +25,8 @@ public class Enemy : Unit
     void Start()
     {
         child = transform.GetChild(0).gameObject;
-        mainTarget = GameObject.FindGameObjectWithTag("PlayerTower").transform;
+        towers = new List<GameObject>();
+        towers.AddRange(GameObject.FindGameObjectsWithTag("PlayerTower"));
         healthBar = GetComponentInChildren<HealthBar>();
 
         child.GetComponent<SpriteRenderer>().sprite = enemyIdentity.artwork;
@@ -35,7 +36,7 @@ public class Enemy : Unit
         health = enemyIdentity.health;
         spawnTime = enemyIdentity.spawnTime;
         speed = enemyIdentity.speed;
-        target = mainTarget;
+        target = getClosestGameObject(towers);
 
         healthBar.setMaxHealth((int)health);
 
@@ -69,7 +70,7 @@ public class Enemy : Unit
         }
         else
         {
-            target = mainTarget;
+            target = getClosestGameObject(towers);
             speed = enemyIdentity.speed;
         }
 

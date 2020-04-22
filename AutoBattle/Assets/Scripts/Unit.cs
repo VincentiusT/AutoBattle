@@ -129,6 +129,26 @@ public class Unit : MonoBehaviour
         return tMin;
     }
 
+    protected Transform getClosestGameObject(List<GameObject> objects)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (GameObject t in objects)
+        {
+            if (t != null)
+            {
+                float dist = Vector3.Distance(t.transform.position, currentPos);
+                if (dist < minDist)
+                {
+                    tMin = t.transform;
+                    minDist = dist;
+                }
+            }
+        }
+        return tMin;
+    }
+
     private void OnDrawGizmos()
     {
         if(path != null && isDrawPath)
