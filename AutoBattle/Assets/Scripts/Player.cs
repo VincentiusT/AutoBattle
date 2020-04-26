@@ -26,9 +26,11 @@ public class Player : Unit
     private GameObject tempGO;
 
     private HealthBar healthBar;
+    private Transform cam;
 
     private void Start()    
     {
+        cam = Camera.main.transform;
         child = transform.GetChild(0).gameObject;
         towers = new List<GameObject>();
         towers.AddRange(GameObject.FindGameObjectsWithTag("EnemyTower"));
@@ -44,6 +46,8 @@ public class Player : Unit
         target = getClosestGameObject(towers);
 
         healthBar.setMaxHealth((int)health);
+
+        healthBar.gameObject.SetActive(false);
 
         if (radius < attackRadius) radius = attackRadius;
     }
@@ -118,6 +122,7 @@ public class Player : Unit
 
     public void subtractHealth(float damage)
     {
+        healthBar.gameObject.SetActive(true);
         health -= damage;
         healthBar.setHealth((int)health);
     }

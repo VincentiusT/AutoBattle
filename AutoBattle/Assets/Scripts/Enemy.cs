@@ -19,11 +19,15 @@ public class Enemy : Unit
     private float radius = 6f;
     private float attackDamage;
     private float nextAttackTime;
+    private bool isLocked;
+    private GameObject tempGO;
 
     private HealthBar healthBar;
+    private Transform cam;
 
     void Start()
     {
+        cam = Camera.main.transform;
         child = transform.GetChild(0).gameObject;
         towers = new List<GameObject>();
         towers.AddRange(GameObject.FindGameObjectsWithTag("PlayerTower"));
@@ -39,6 +43,7 @@ public class Enemy : Unit
         target = getClosestGameObject(towers);
 
         healthBar.setMaxHealth((int)health);
+        healthBar.gameObject.SetActive(false);
 
         StartCoroutine(updatePath());
     }
@@ -46,9 +51,9 @@ public class Enemy : Unit
     void Update()
     {
 
-        players = checkPlayerInRadius(radius);
+        if(!isLocked) players = checkPlayerInRadius(radius);
 
-        if(players.Length > 0)
+        if(players.Length > 0 && !isLocked)
         {
             currentPlayer = getClosestGameObject(players);
             if (currentPlayer.GetComponent<Player>().isPlaced)
@@ -70,8 +75,27 @@ public class Enemy : Unit
         }
         else
         {
-            target = getClosestGameObject(towers);
-            speed = enemyIdentity.speed;
+            if (isLocked && target == null)
+            {
+                isLocked = false;
+                towers.Remove(tempGO);
+            }
+            if (!isLocked) target = getClosestGameObject(towers);
+            if (Vector3.Distance(transform.position, target.position) <= attackRadius)
+            {
+                speed = 0;
+                isLocked = true;
+                tempGO = target.gameObject;
+                if (Time.time >= nextAttackTime)
+                {
+                    target.GetComponent<Tower>().subtractHealth(attackDamage);
+                    nextAttackTime = Time.time + 1f / attackSpeed;
+                }
+            }
+            else
+            {
+                speed = enemyIdentity.speed;
+            }
         }
 
         if (health <= 0)
@@ -92,8 +116,11 @@ public class Enemy : Unit
     public void subtractHealth(float damage)
     {
         health -= damage;
-        if(healthBar!=null)
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(true);
             healthBar.setHealth((int)health);
+        }
     }
 
     private Collider[] checkPlayerInRadius(float _radius)

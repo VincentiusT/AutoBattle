@@ -23,10 +23,12 @@ public class Tower : MonoBehaviour
             health = towerHealth;
         }
         healthBar.setMaxHealth((int)health);
+        healthBar.gameObject.SetActive(false);
     }
     
     public void subtractHealth(float damage)
     {
+        healthBar.gameObject.SetActive(true);
         health -= damage;
         if (health <= 0)
         {

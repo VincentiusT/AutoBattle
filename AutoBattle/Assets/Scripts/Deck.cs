@@ -6,6 +6,7 @@ using TMPro;
 
 public class Deck : MonoBehaviour
 {
+    public GameObject hitAreaCircle;
     public LayerMask unwalkable;
     public GameObject[] heroes;
     public Image[] heroesInDeckUI;
@@ -20,9 +21,12 @@ public class Deck : MonoBehaviour
     private Vector3 worldPosition;
     private Vector3 putHeroCoord;
     private GameObject pickedHero;
+    private float hitAreaSize;
     private bool isPicked=false;
     private bool cannotPickNow = false;
     private int index;
+    private Color cannotPutHeroColor = new Color(1,0,0,0.4f);
+    private Color normalPutHeroColor = new Color(1,1,1,0.4f);
 
     private void Start()
     {
@@ -41,7 +45,6 @@ public class Deck : MonoBehaviour
             heroesInQueue.Enqueue(heroes[i]);
             heroesInQueueIdentity.Enqueue(heroes[i].GetComponent<Player>().playerIdentity);
         }
-
         showDeck();
     }
 
@@ -79,11 +82,21 @@ public class Deck : MonoBehaviour
                 pickedHero = go;
                 heroesInDeckUI[index].enabled = false;
                 heroesInDeckCost[index].enabled = false;
+                hitAreaSize = pickedHero.GetComponent<Player>().playerIdentity.attackRadius / 5f;
+                hitAreaCircle.SetActive(true);
+                hitAreaCircle.transform.localScale = new Vector3(hitAreaSize, hitAreaSize,hitAreaSize);
             }
         }
-
         worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         putHeroCoord = new Vector3(worldPosition.x,0.5f,worldPosition.z);
+        if (hitAreaCircle.activeSelf)
+        {
+            hitAreaCircle.transform.position = putHeroCoord;
+            if(Physics.OverlapSphere(pickedHero.transform.position, 1f, unwalkable).Length > 0)
+                hitAreaCircle.GetComponent<SpriteRenderer>().color = cannotPutHeroColor;
+            else
+                hitAreaCircle.GetComponent<SpriteRenderer>().color = normalPutHeroColor;
+        }
         if(pickedHero!=null) pickedHero.transform.position = putHeroCoord;
         cannotPickNow = true;
     }
@@ -105,11 +118,13 @@ public class Deck : MonoBehaviour
             heroesInQueueIdentity.Enqueue(temp.GetComponent<Player>().playerIdentity);
             heroesInDeckUI[index].enabled = true;
             heroesInDeckCost[index].enabled = true;
+            hitAreaCircle.SetActive(false);
             changeDeck();
             
         }
         else
         {
+            hitAreaCircle.SetActive(false);
             Destroy(pickedHero);
             heroesInDeckUI[index].enabled =true;
             heroesInDeckCost[index].enabled = true;
