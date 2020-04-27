@@ -8,11 +8,11 @@ public class Deck : MonoBehaviour
 {
     public GameObject hitAreaCircle;
     public LayerMask unwalkable;
-    public GameObject[] heroes;
     public Image[] heroesInDeckUI;
     public Image nextHeroUI;
     public TextMeshProUGUI[] heroesInDeckCost;
 
+    public GameObject[] heroes;
     private Queue<GameObject> heroesInQueue;
     private List<GameObject> heroesInDeck;
     private Queue<Identity> heroesInQueueIdentity;
@@ -25,8 +25,8 @@ public class Deck : MonoBehaviour
     private bool isPicked=false;
     private bool cannotPickNow = false;
     private int index;
-    private Color cannotPutHeroColor = new Color(1,0,0,0.4f);
-    private Color normalPutHeroColor = new Color(1,1,1,0.4f);
+    private Color cannotPutHeroColor = new Color(1,0,0,0.2f);
+    private Color normalPutHeroColor = new Color(1,1,1,0.2f);
 
     private void Start()
     {
@@ -39,18 +39,19 @@ public class Deck : MonoBehaviour
         {
             heroesInDeck.Add(heroes[i]);
             heroesInDeckIdentity.Add(heroes[i].GetComponent<Player>().playerIdentity);
+            Debug.Log(heroes[i].name);
         }
-        for(int i = 4; i < 8; i++)
+        for(int i = 4; i < heroes.Length; i++)
         {
             heroesInQueue.Enqueue(heroes[i]);
             heroesInQueueIdentity.Enqueue(heroes[i].GetComponent<Player>().playerIdentity);
+            Debug.Log(heroes[i].name);
         }
         showDeck();
     }
 
     private void Update()
     {
-
         if (isPicked)
         {
             if (Input.GetMouseButton(0))
@@ -111,7 +112,7 @@ public class Deck : MonoBehaviour
         {
             GameObject temp=null;
             temp = heroesInDeck[index];
-            pickedHero.GetComponent<Player>().spawnThisPlayer();
+            StartCoroutine(pickedHero.GetComponent<Player>().spawnThisPlayer());
             heroesInDeck[index] = heroesInQueue.Dequeue();
             heroesInDeckIdentity[index] = heroesInQueueIdentity.Dequeue(); 
             heroesInQueue.Enqueue(temp);

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public bool mainTower;
+    public bool mainTowerPlayer;
+    public bool mainTowerEnemy;
     private HealthBar healthBar;
     private int mainTowerHealth = 3000;
     private int towerHealth = 1200;
@@ -14,7 +15,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         healthBar = GetComponentInChildren<HealthBar>();
-        if (mainTower)
+        if (mainTowerPlayer || mainTowerEnemy)
         {
             health = mainTowerHealth;
         }
@@ -40,6 +41,15 @@ public class Tower : MonoBehaviour
     
     public void destroyTower()
     {
+        if (mainTowerPlayer)
+        {
+            GameManager.instance.gameOver();
+        }
+        else if (mainTowerEnemy)
+        {
+            GameManager.instance.win();
+        }
         Destroy(gameObject);
+        
     }
 }

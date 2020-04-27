@@ -63,7 +63,6 @@ public class GridMaker : MonoBehaviour
 
                 int movementPenalty = 0;
                 //raycast
-                
                 Ray ray = new Ray(worldPoint+ Vector3.up * 50, Vector3.down);
                 RaycastHit hit;
                 if(Physics.Raycast(ray, out hit,100, walkableMask))
@@ -74,11 +73,9 @@ public class GridMaker : MonoBehaviour
                 {
                     movementPenalty += obstaclePenalty;
                 }
-
                 grid[i, j] = new Node(walkable, worldPoint,i,j, movementPenalty);
             }
         }
-
         BlurPenaltyMap(3); //buat ngeblur map biar jalannya smooth
     }
 

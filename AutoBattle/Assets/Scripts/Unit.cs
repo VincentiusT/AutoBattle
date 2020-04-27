@@ -149,7 +149,7 @@ public class Unit : MonoBehaviour
         return tMin;
     }
 
-    private void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         if(path != null && isDrawPath)
         {

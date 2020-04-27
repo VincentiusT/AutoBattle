@@ -312,13 +312,14 @@ MonoBehaviour:
   isDrawPath: 1
   isKeepUpdatetingPath: 1
   playerIdentity: {fileID: 11400000, guid: 2c39ee307e60acb4984c6df5bddd9594, type: 2}
-  mainTarget: {fileID: 0}
+  towers: []
   enemyMask:
     serializedVersion: 2
     m_Bits: 4096
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 14592
+  isPlaced: 0
   deckArtwork: {fileID: 0}
 --- !u!136 &1085760463956808272
 CapsuleCollider:

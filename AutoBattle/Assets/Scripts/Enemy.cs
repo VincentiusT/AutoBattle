@@ -80,6 +80,7 @@ public class Enemy : Unit
                 isLocked = false;
                 towers.Remove(tempGO);
             }
+            if (towers.Count <= 0) return;
             if (!isLocked) target = getClosestGameObject(towers);
             if (Vector3.Distance(transform.position, target.position) <= attackRadius)
             {
@@ -89,7 +90,7 @@ public class Enemy : Unit
                 if (Time.time >= nextAttackTime)
                 {
                     target.GetComponent<Tower>().subtractHealth(attackDamage);
-                    nextAttackTime = Time.time + 1f / attackSpeed;
+                    nextAttackTime = Time.time + 1f * attackSpeed;
                 }
             }
             else

@@ -13,11 +13,7 @@ public class PathFinding : MonoBehaviour
         //requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<GridMaker>();
     }
-
-    //public void startFindPath(Vector3 startPosition, Vector3 endPosition)
-    //{
-    //    StartCoroutine(findPath(startPosition, endPosition));
-    //}
+  
 
     public void findPath(PathRequest request, Action<PathResult> callback)
     {
@@ -30,22 +26,12 @@ public class PathFinding : MonoBehaviour
         if (startNode.walkable && targetNode.walkable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
-            //List<Node> openSet = new List<Node>(); --kode tanpa optimisasi
             HashSet<Node> closeSet = new HashSet<Node>();
             openSet.Add(startNode);
 
             while (openSet.Count > 0)
             {
                 Node currentNode = openSet.removeFirst();
-                /*Node currentNode = openSet[0]; --kode tanpa optimisasi
-                  for (int i = 1; i < openSet.Count; i++)
-                  {
-                      if (openSet[i].f_cost < currentNode.f_cost  || (openSet[i].f_cost == currentNode.f_cost && openSet[i].h_cost < currentNode.h_cost))
-                      {
-                          currentNode = openSet[i];
-                      }
-                  }
-                  openSet.Remove(currentNode); */
                 closeSet.Add(currentNode);
 
                 if (currentNode == targetNode)
@@ -80,39 +66,34 @@ public class PathFinding : MonoBehaviour
         callback(new PathResult(wayPoints, pathSuccess, request.callback));
     }
 
-    //IEnumerator findPath(Vector3 sourcePos, Vector3 targetPos)
+    //public void findPath(Vector3 sourcePos, Vector3 targetPos)
     //{
-
     //    Vector3[] wayPoints = new Vector3[0];
-    //    bool pathSuccess = false;
-
     //    Node startNode = grid.nodeFromWorldPoint(sourcePos);
     //    Node targetNode = grid.nodeFromWorldPoint(targetPos);
-    //    if(startNode.walkable && targetNode.walkable)
+    //    if (startNode.walkable && targetNode.walkable)
     //    {
-    //        Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
-    //        //List<Node> openSet = new List<Node>(); --kode tanpa optimisasi
+    //        List<Node> openSet = new List<Node>(); 
     //        HashSet<Node> closeSet = new HashSet<Node>();
     //        openSet.Add(startNode);
 
     //        while (openSet.Count > 0)
     //        {
-    //            Node currentNode = openSet.removeFirst();
-    //            /*Node currentNode = openSet[0]; --kode tanpa optimisasi
-    //              for (int i = 1; i < openSet.Count; i++)
-    //              {
-    //                  if (openSet[i].f_cost < currentNode.f_cost  || (openSet[i].f_cost == currentNode.f_cost && openSet[i].h_cost < currentNode.h_cost))
-    //                  {
-    //                      currentNode = openSet[i];
-    //                  }
-    //              }
-    //              openSet.Remove(currentNode); */
+    //            Node currentNode = openSet[0];
+    //            for (int i = 1; i < openSet.Count; i++)
+    //            {
+    //                if (openSet[i].f_cost < currentNode.f_cost || (openSet[i].f_cost == currentNode.f_cost && openSet[i].h_cost < currentNode.h_cost))
+    //                {
+    //                    currentNode = openSet[i];
+    //                }
+    //            }
+    //            openSet.Remove(currentNode);
     //            closeSet.Add(currentNode);
 
     //            if (currentNode == targetNode)
     //            {
-    //                pathSuccess = true;
-    //                break;
+    //                //path ditemukan
+    //                return;
     //            }
 
     //            foreach (Node neighbour in grid.getNeighbours(currentNode))
@@ -127,21 +108,12 @@ public class PathFinding : MonoBehaviour
     //                    neighbour.parent = currentNode;
 
     //                    if (!openSet.Contains(neighbour)) openSet.Add(neighbour);
-    //                    else openSet.updateItem(neighbour); 
+    //                    else openSet.Add(neighbour);
     //                }
     //            }
     //        }
     //    }
-
-    //    yield return null;
-
-    //    if (pathSuccess)
-    //    {
-    //        wayPoints = retracePath(startNode, targetNode);
-    //        pathSuccess = wayPoints.Length > 0;
-    //    }
-
-    //    requestManager.FinishedProcessingPath(wayPoints, pathSuccess); 
+        
     //}
 
     private int getDistance(Node nodeA, Node nodeB)

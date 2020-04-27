@@ -23,6 +23,7 @@ public class Player : Unit
     private float attackDamage;
     private float nextAttackTime;
     private bool isLocked;
+    private bool canAttack;
     private GameObject tempGO;
 
     private HealthBar healthBar;
@@ -50,11 +51,12 @@ public class Player : Unit
         healthBar.gameObject.SetActive(false);
 
         if (radius < attackRadius) radius = attackRadius;
+        
     }
 
     private void Update()
     {
-        if (!isPlaced) return;
+        if (!isPlaced || !canAttack) return;
 
         if(!isLocked) enemies = checkEnemyInRadius(radius);
 
@@ -83,6 +85,7 @@ public class Player : Unit
                 isLocked = false;
                 towers.Remove(tempGO);
             }
+            if (towers.Count <= 0) return;
             if(!isLocked) target = getClosestGameObject(towers);
             if(Vector3.Distance(transform.position,target.position) <= attackRadius)
             {
@@ -92,7 +95,7 @@ public class Player : Unit
                 if (Time.time >= nextAttackTime)
                 {
                     target.GetComponent<Tower>().subtractHealth(attackDamage);
-                    nextAttackTime = Time.time + 1f / attackSpeed;
+                    nextAttackTime = Time.time + 1f * attackSpeed;
                 }
             }
             else
@@ -133,15 +136,13 @@ public class Player : Unit
         Destroy(gameObject);
     }
 
-    public void spawnThisPlayer()
+    public IEnumerator spawnThisPlayer()
     {
         isPlaced = true;
+        yield return new WaitForSeconds(playerIdentity.spawnTime);
+        canAttack = true;
         StartCoroutine(updatePath());
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
-    }
+    
 }
