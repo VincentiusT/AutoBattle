@@ -11,6 +11,8 @@ public class Deck : MonoBehaviour
     public Image[] heroesInDeckUI;
     public Image nextHeroUI;
     public TextMeshProUGUI[] heroesInDeckCost;
+    public TextMeshProUGUI coinText;
+    public GameObject limit;
 
     public GameObject[] heroes;
     private Queue<GameObject> heroesInQueue;
@@ -18,6 +20,8 @@ public class Deck : MonoBehaviour
     private Queue<Identity> heroesInQueueIdentity;
     private List<Identity> heroesInDeckIdentity;
 
+    private float coin = 100;
+    private int originalCoin;
     private Vector3 worldPosition;
     private Vector3 putHeroCoord;
     private GameObject pickedHero;
@@ -25,6 +29,7 @@ public class Deck : MonoBehaviour
     private bool isPicked=false;
     private bool cannotPickNow = false;
     private int index;
+    private bool thereIsHero;
     private Color cannotPutHeroColor = new Color(1,0,0,0.2f);
     private Color normalPutHeroColor = new Color(1,1,1,0.2f);
 
@@ -35,6 +40,7 @@ public class Deck : MonoBehaviour
         heroesInQueue = new Queue<GameObject>();
         heroesInDeckIdentity = new List<Identity>();
         heroesInQueueIdentity = new Queue<Identity>();
+        originalCoin = (int)coin;
         for (int i = 0; i < 4; i++)
         {
             heroesInDeck.Add(heroes[i]);
@@ -58,10 +64,16 @@ public class Deck : MonoBehaviour
             {
                 dragAndDropHero();
             }
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && thereIsHero)
             {
                 putHero();
             }
+        }
+
+        if(coin < originalCoin)
+        {
+            coin += Time.deltaTime * 10;
+            coinText.text = coin.ToString("0");
         }
     }
 
@@ -74,6 +86,14 @@ public class Deck : MonoBehaviour
 
     private void dragAndDropHero()
     {
+        limit.SetActive(true);
+        int cst = heroesInDeckIdentity[index].cost;
+        if (cst > coin)
+        {
+            thereIsHero = false;
+            return;
+        }
+        thereIsHero = true;
         if (!cannotPickNow)
         {
             GameObject go;
@@ -104,12 +124,13 @@ public class Deck : MonoBehaviour
 
     private void putHero()
     {
-        isPicked = false;
-        cannotPickNow = false;
         if (pickedHero == null) return;
-
         if (Physics.OverlapSphere(pickedHero.transform.position, 1f, unwalkable).Length <= 0)
         {
+            int cst = heroesInDeckIdentity[index].cost;
+            coin -= cst;
+            isPicked = false;
+            cannotPickNow = false;
             GameObject temp=null;
             temp = heroesInDeck[index];
             StartCoroutine(pickedHero.GetComponent<Player>().spawnThisPlayer());
@@ -130,6 +151,7 @@ public class Deck : MonoBehaviour
             heroesInDeckUI[index].enabled =true;
             heroesInDeckCost[index].enabled = true;
         }
+        limit.SetActive(false);
     }
 
     private void showDeck()

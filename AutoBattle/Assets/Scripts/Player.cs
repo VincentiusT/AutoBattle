@@ -17,6 +17,7 @@ public class Player : Unit
     private float attackSpeed;
     private float health;
     private float spawnTime;
+    private int type;
     public Sprite deckArtwork; 
 
     private float radius = 6f;
@@ -44,12 +45,14 @@ public class Player : Unit
         spawnTime = playerIdentity.spawnTime;
         speed = playerIdentity.speed;
         deckArtwork = playerIdentity.deckArtwork;
+        type = playerIdentity.type;
         target = getClosestGameObject(towers);
 
         healthBar.setMaxHealth((int)health);
 
         healthBar.gameObject.SetActive(false);
 
+        GameManager.instance.totalEnemyTower = towers.Count;
         if (radius < attackRadius) radius = attackRadius;
         
     }
@@ -57,13 +60,29 @@ public class Player : Unit
     private void Update()
     {
         if (!isPlaced || !canAttack) return;
+        if(type==1) //attack normal
+        {
+            moveNormal();
+        }
+        else if(type ==2) //attack tower
+        {
+            moveTower();
+        }
+        
+        if(health <= 0)
+        {
+            dead();
+        }
+    }
 
-        if(!isLocked) enemies = checkEnemyInRadius(radius);
+    private void moveNormal()
+    {
+        if (!isLocked) enemies = checkEnemyInRadius(radius);
 
         if (enemies.Length > 0 && !isLocked)
         {
             currentEnemy = getClosestGameObject(enemies);
-            if(Vector3.Distance(transform.position,currentEnemy.position) <= attackRadius)
+            if (Vector3.Distance(transform.position, currentEnemy.position) <= attackRadius)
             {
                 speed = 0;
                 if (Time.time >= nextAttackTime)
@@ -84,10 +103,11 @@ public class Player : Unit
             {
                 isLocked = false;
                 towers.Remove(tempGO);
+                GameManager.instance.totalEnemyTower = towers.Count;
             }
             if (towers.Count <= 0) return;
-            if(!isLocked) target = getClosestGameObject(towers);
-            if(Vector3.Distance(transform.position,target.position) <= attackRadius)
+            if (!isLocked) target = getClosestGameObject(towers);
+            if (Vector3.Distance(transform.position, target.position) <= attackRadius)
             {
                 speed = 0;
                 isLocked = true;
@@ -103,10 +123,32 @@ public class Player : Unit
                 speed = playerIdentity.speed;
             }
         }
+    }
 
-        if(health <= 0)
+    private void moveTower()
+    {
+        if (isLocked && target == null)
         {
-            dead();
+            isLocked = false;
+            towers.Remove(tempGO);
+            GameManager.instance.totalEnemyTower = towers.Count;
+        }
+        if (towers.Count <= 0) return;
+        if (!isLocked) target = getClosestGameObject(towers);
+        if (Vector3.Distance(transform.position, target.position) <= attackRadius)
+        {
+            speed = 0;
+            isLocked = true;
+            tempGO = target.gameObject;
+            if (Time.time >= nextAttackTime)
+            {
+                target.GetComponent<Tower>().subtractHealth(attackDamage);
+                nextAttackTime = Time.time + 1f * attackSpeed;
+            }
+        }
+        else
+        {
+            speed = playerIdentity.speed;
         }
     }
 

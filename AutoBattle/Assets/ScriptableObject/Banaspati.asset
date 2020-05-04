@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
-  m_Name: timunMas
+  m_Name: Banaspati
   m_EditorClassIdentifier: 
-  name: Goblin
-  artwork: {fileID: 21300000, guid: b63e40d08ff67eb4a849779928c90686, type: 3}
-  deckArtwork: {fileID: 21300000, guid: b63e40d08ff67eb4a849779928c90686, type: 3}
-  cost: 30
-  health: 50
+  name: Banaspati
+  artwork: {fileID: 21300000, guid: c281e55716845a54c9d233b73dbe9906, type: 3}
+  deckArtwork: {fileID: 21300000, guid: c281e55716845a54c9d233b73dbe9906, type: 3}
+  cost: 10
+  health: 200
   speed: 2
-  attack: 5
-  attackSpeed: 2
+  attack: 10
+  attackSpeed: 1
   attackRadius: 2
   spawnTime: 1
   type: 1

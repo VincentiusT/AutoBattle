@@ -10,19 +10,21 @@ public class Node : IHeapItem<Node>
     public int gridX;
     public int gridY;
     public int movementPenalty;
+    public bool isTower;
 
     public int g_cost;
     public int h_cost;
     public Node parent;
     int heapIndex;
 
-    public Node(bool walkable, Vector3 worldPos, int gridX, int gridY, int movementPenalty)
+    public Node(bool walkable, Vector3 worldPos, int gridX, int gridY, int movementPenalty, bool isTower)
     {
         this.walkable = walkable;
         this.worldPos = worldPos;
         this.gridX = gridX;
         this.gridY = gridY;
         this.movementPenalty = movementPenalty;
+        this.isTower = isTower;
     }
 
     public int f_cost

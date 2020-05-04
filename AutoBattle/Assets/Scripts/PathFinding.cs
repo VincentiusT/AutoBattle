@@ -23,7 +23,8 @@ public class PathFinding : MonoBehaviour
 
         Node startNode = grid.nodeFromWorldPoint(request.pathStart);
         Node targetNode = grid.nodeFromWorldPoint(request.pathEnd);
-        if (startNode.walkable && targetNode.walkable)
+        Node unitNode = grid.nodeFromWorldPoint(request.unitNode);
+        if (startNode.walkable && startNode.walkable || (!startNode.walkable && targetNode.isTower))
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
             HashSet<Node> closeSet = new HashSet<Node>();
@@ -42,7 +43,7 @@ public class PathFinding : MonoBehaviour
 
                 foreach (Node neighbour in grid.getNeighbours(currentNode))
                 {
-                    if (!neighbour.walkable || closeSet.Contains(neighbour)) continue;
+                    if (!neighbour.walkable || (!neighbour.isTower && neighbour!=targetNode)||closeSet.Contains(neighbour)) continue;
 
                     int newMovementCostToNeighbour = currentNode.g_cost + getDistance(currentNode, neighbour) + neighbour.movementPenalty;
                     if (newMovementCostToNeighbour < neighbour.g_cost || !openSet.Contains(neighbour))
@@ -65,56 +66,6 @@ public class PathFinding : MonoBehaviour
         }
         callback(new PathResult(wayPoints, pathSuccess, request.callback));
     }
-
-    //public void findPath(Vector3 sourcePos, Vector3 targetPos)
-    //{
-    //    Vector3[] wayPoints = new Vector3[0];
-    //    Node startNode = grid.nodeFromWorldPoint(sourcePos);
-    //    Node targetNode = grid.nodeFromWorldPoint(targetPos);
-    //    if (startNode.walkable && targetNode.walkable)
-    //    {
-    //        List<Node> openSet = new List<Node>(); 
-    //        HashSet<Node> closeSet = new HashSet<Node>();
-    //        openSet.Add(startNode);
-
-    //        while (openSet.Count > 0)
-    //        {
-    //            Node currentNode = openSet[0];
-    //            for (int i = 1; i < openSet.Count; i++)
-    //            {
-    //                if (openSet[i].f_cost < currentNode.f_cost || (openSet[i].f_cost == currentNode.f_cost && openSet[i].h_cost < currentNode.h_cost))
-    //                {
-    //                    currentNode = openSet[i];
-    //                }
-    //            }
-    //            openSet.Remove(currentNode);
-    //            closeSet.Add(currentNode);
-
-    //            if (currentNode == targetNode)
-    //            {
-    //                //path ditemukan
-    //                return;
-    //            }
-
-    //            foreach (Node neighbour in grid.getNeighbours(currentNode))
-    //            {
-    //                if (!neighbour.walkable || closeSet.Contains(neighbour)) continue;
-
-    //                int newMovementCostToNeighbour = currentNode.g_cost + getDistance(currentNode, neighbour) + neighbour.movementPenalty;
-    //                if (newMovementCostToNeighbour < neighbour.g_cost || !openSet.Contains(neighbour))
-    //                {
-    //                    neighbour.g_cost = newMovementCostToNeighbour;
-    //                    neighbour.h_cost = getDistance(neighbour, targetNode);
-    //                    neighbour.parent = currentNode;
-
-    //                    if (!openSet.Contains(neighbour)) openSet.Add(neighbour);
-    //                    else openSet.Add(neighbour);
-    //                }
-    //            }
-    //        }
-    //    }
-        
-    //}
 
     private int getDistance(Node nodeA, Node nodeB)
     {

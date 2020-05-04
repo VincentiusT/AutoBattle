@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 1085760463956808276}
   - component: {fileID: 1085760463956808272}
   m_Layer: 13
-  m_Name: timunMas
+  m_Name: Cindaku
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,13 +312,14 @@ MonoBehaviour:
   isDrawPath: 1
   isKeepUpdatetingPath: 1
   playerIdentity: {fileID: 11400000, guid: b06313058331ddd4da0c3b4cb530b0a1, type: 2}
-  mainTarget: {fileID: 0}
+  towers: []
   enemyMask:
     serializedVersion: 2
     m_Bits: 4096
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 14592
+  isPlaced: 0
   deckArtwork: {fileID: 0}
 --- !u!136 &1085760463956808272
 CapsuleCollider:
@@ -460,13 +461,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085760464914812302}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: -0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 1085760463956808277}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1085760464914812300
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -506,7 +507,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 9a9e6ac27d87c4b47825eea846d9989a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

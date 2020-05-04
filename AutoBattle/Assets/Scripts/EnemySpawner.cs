@@ -5,13 +5,31 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemies;
-    public float spawnTime=3f;
+    //public float spawnTime=3f;
 
     private float currTime;
     private int tempIndex;
 
     private void Update()
     {
+        
+    }
+
+    private float getSpawnTimeByWave(int x)
+    {
+        float t=10;
+        switch (x)
+        {
+            case 1: t = 7; break;
+            case 2: t = 5; break;
+            case 3: t = 3; break;
+        }
+        return t;
+    }
+
+    public void spawnByWave(int wave)
+    {
+        float spawnTime = getSpawnTimeByWave(wave);
         currTime += Time.deltaTime;
         if (currTime >= spawnTime)
         {

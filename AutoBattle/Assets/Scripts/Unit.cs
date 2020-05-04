@@ -13,17 +13,22 @@ public class Unit : MonoBehaviour
     public float turnSpeed = 3;
     public float stoppingDst = 10;
     public bool isDrawPath;
-    
 
     public bool isKeepUpdatetingPath=true;
-
+    Vector3 unitPos;
     Path path;
 
     //Vector3[] path;
     int targetIndex;
+    
+    private void Update()
+    {
+        unitPos = transform.position;
+    }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
     {
+        if (transform == null) return;
         if (pathSuccess && transform!=null)
         {
              //path = newPath;
@@ -39,7 +44,7 @@ public class Unit : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
        // PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
        if(transform!=null)
-            PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound, unitPos));
 
         float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
         Vector3 targetOldPos = target.position;
@@ -50,7 +55,7 @@ public class Unit : MonoBehaviour
             {
                 if((target.position - targetOldPos).sqrMagnitude > sqrMoveThreshold)
                 {
-                    PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+                    PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound, unitPos));
                     targetOldPos = target.position;
                 }
             }
@@ -153,6 +158,7 @@ public class Unit : MonoBehaviour
     {
         if(path != null && isDrawPath)
         {
+
             path.DrawWithGizmos(transform.position);
             //for (int i = targetIndex; i < path.lookPoints.Length; i++)
             //{

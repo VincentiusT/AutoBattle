@@ -94,12 +94,14 @@ public struct PathRequest
 {
     public Vector3 pathStart;
     public Vector3 pathEnd;
+    public Vector3 unitNode;
     public Action<Vector3[], bool> callback;
 
-    public PathRequest(Vector3 _pathStart, Vector3 _pathEnd, Action<Vector3[],bool> _callback)
+    public PathRequest(Vector3 _pathStart, Vector3 _pathEnd, Action<Vector3[],bool> _callback, Vector3 _unitNode)
     {
         pathStart = _pathStart;
         pathEnd = _pathEnd;
+        unitNode = _unitNode;
         callback = _callback;
     }
 }

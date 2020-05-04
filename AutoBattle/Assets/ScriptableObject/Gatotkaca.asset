@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Gatotkaca
   m_EditorClassIdentifier: 
   name: Gatotkaca
-  artwork: {fileID: 21300000, guid: 8cc6691fe13eb004091684606a7c1a2c, type: 3}
-  deckArtwork: {fileID: 21300000, guid: 8cc6691fe13eb004091684606a7c1a2c, type: 3}
-  cost: 30
+  artwork: {fileID: 21300000, guid: 3d21157eb53154340a9eaf6da948e7e4, type: 3}
+  deckArtwork: {fileID: 21300000, guid: 3d21157eb53154340a9eaf6da948e7e4, type: 3}
+  cost: 0
   health: 200
   speed: 3
   attack: 10
   attackSpeed: 1
   attackRadius: 2
   spawnTime: 1
-  type: 1
+  type: 2

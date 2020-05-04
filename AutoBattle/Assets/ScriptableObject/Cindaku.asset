@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
-  m_Name: roroJongrang
+  m_Name: Cindaku
   m_EditorClassIdentifier: 
-  name: roroJongrang
-  artwork: {fileID: 21300000, guid: 3c8597e661b690d4ca0498c8f02fb33e, type: 3}
-  deckArtwork: {fileID: 21300000, guid: 3c8597e661b690d4ca0498c8f02fb33e, type: 3}
-  cost: 10
-  health: 200
-  speed: 3
-  attack: 10
-  attackSpeed: 1
+  name: Cindaku
+  artwork: {fileID: 21300000, guid: 9a9e6ac27d87c4b47825eea846d9989a, type: 3}
+  deckArtwork: {fileID: 21300000, guid: 9a9e6ac27d87c4b47825eea846d9989a, type: 3}
+  cost: 30
+  health: 50
+  speed: 2
+  attack: 5
+  attackSpeed: 2
   attackRadius: 2
   spawnTime: 1
   type: 1

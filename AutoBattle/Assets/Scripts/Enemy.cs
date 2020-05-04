@@ -45,6 +45,7 @@ public class Enemy : Unit
         healthBar.setMaxHealth((int)health);
         healthBar.gameObject.SetActive(false);
 
+        GameManager.instance.totalPlayerTower = towers.Count;
         StartCoroutine(updatePath());
     }
     
@@ -79,6 +80,7 @@ public class Enemy : Unit
             {
                 isLocked = false;
                 towers.Remove(tempGO);
+                GameManager.instance.totalPlayerTower = towers.Count;
             }
             if (towers.Count <= 0) return;
             if (!isLocked) target = getClosestGameObject(towers);

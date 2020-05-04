@@ -6,6 +6,7 @@ public class GridMaker : MonoBehaviour
 {
     public bool displayGridPathGizmos;
     public LayerMask unwalkableMask;
+    public LayerMask towerMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
     public TerrainType[] walkableRegion;
@@ -44,11 +45,6 @@ public class GridMaker : MonoBehaviour
         }
     }
 
-    public void updateWalkable(Vector3 place)
-    {
-
-    }
-
     private void createGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -60,6 +56,7 @@ public class GridMaker : MonoBehaviour
             {
                 Vector3 worldPoint = bottomLeftWorld + Vector3.right * (i * nodeDiameter + nodeRadius) + Vector3.forward * (j * nodeDiameter + nodeRadius);
                 bool walkable = !Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask);
+                bool isTower = !Physics.CheckSphere(worldPoint, nodeRadius, towerMask);
 
                 int movementPenalty = 0;
                 //raycast
@@ -73,7 +70,7 @@ public class GridMaker : MonoBehaviour
                 {
                     movementPenalty += obstaclePenalty;
                 }
-                grid[i, j] = new Node(walkable, worldPoint,i,j, movementPenalty);
+                grid[i, j] = new Node(walkable, worldPoint,i,j, movementPenalty, isTower);
             }
         }
         BlurPenaltyMap(3); //buat ngeblur map biar jalannya smooth
@@ -169,13 +166,14 @@ public class GridMaker : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
         
+
         if (grid != null && displayGridPathGizmos)
         {
             foreach (Node n in grid)
             {
                 Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
-
                 Gizmos.color = (n.walkable) ? Gizmos.color : Color.red;
+                Gizmos.color = (n.isTower) ? Gizmos.color : Color.blue;
                 Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter-0.2f ));
             }
         }
