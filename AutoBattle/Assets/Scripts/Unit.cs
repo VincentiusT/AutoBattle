@@ -28,7 +28,6 @@ public class Unit : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
     {
-        if (transform == null) return;
         if (pathSuccess && transform!=null)
         {
              //path = newPath;
@@ -44,7 +43,7 @@ public class Unit : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
        // PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
        if(transform!=null)
-            PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound, unitPos));
+            PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 
         float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
         Vector3 targetOldPos = target.position;
@@ -55,7 +54,7 @@ public class Unit : MonoBehaviour
             {
                 if((target.position - targetOldPos).sqrMagnitude > sqrMoveThreshold)
                 {
-                    PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound, unitPos));
+                    PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
                     targetOldPos = target.position;
                 }
             }

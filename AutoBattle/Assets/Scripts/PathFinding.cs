@@ -23,7 +23,6 @@ public class PathFinding : MonoBehaviour
 
         Node startNode = grid.nodeFromWorldPoint(request.pathStart);
         Node targetNode = grid.nodeFromWorldPoint(request.pathEnd);
-        Node unitNode = grid.nodeFromWorldPoint(request.unitNode);
         if (startNode.walkable && startNode.walkable || (!startNode.walkable && targetNode.isTower))
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);

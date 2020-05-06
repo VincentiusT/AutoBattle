@@ -10,11 +10,6 @@ public class EnemySpawner : MonoBehaviour
     private float currTime;
     private int tempIndex;
 
-    private void Update()
-    {
-        
-    }
-
     private float getSpawnTimeByWave(int x)
     {
         float t=10;

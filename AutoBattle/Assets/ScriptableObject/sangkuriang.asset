@@ -19,7 +19,7 @@ MonoBehaviour:
   health: 200
   speed: 3
   attack: 100
-  attackSpeed: 5
+  attackSpeed: 0.5
   attackRadius: 8
   spawnTime: 1
   type: 1

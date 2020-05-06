@@ -361,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299ea51eac8ebfb48ae61eb217e8d775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   anchor: {fileID: 7303732920584883112}
 --- !u!1 &7303732919893289047
 GameObject:
@@ -377,8 +376,8 @@ GameObject:
   - component: {fileID: 7303732919893289000}
   - component: {fileID: 7303732919893289004}
   m_Layer: 12
-  m_Name: enemy
-  m_TagString: Untagged
+  m_Name: enemy 2
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,7 +391,7 @@ Transform:
   m_GameObject: {fileID: 7303732919893289047}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 6.61, y: 0, z: 7.9}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7303732920584883112}
   - {fileID: 7303732919229299108}
@@ -472,14 +471,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822875c29fe644b41b0e22d5cd5ed71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
   turnDst: 0.1
   turnSpeed: 3
   stoppingDst: 10
   isDrawPath: 0
   isKeepUpdatetingPath: 1
-  enemyIdentity: {fileID: 11400000, guid: 49922d6692ed6ea48ae4b60f1a498239, type: 2}
-  mainTarget: {fileID: 0}
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
+  enemyIdentity: {fileID: 11400000, guid: 67279e0c6ce5321439b889ab38058301, type: 2}
+  towers: []
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
@@ -507,13 +507,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7303732920584883159}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 7303732919893289003}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &7303732920584883113
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -553,8 +553,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7499154508442906066, guid: 135384c39e5528d4faad88e2139f653b,
-    type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Unit
 {
+    public GameObject deadParticle;
     public Identity playerIdentity;
     public List<GameObject> towers;
     public LayerMask enemyMask;
@@ -115,7 +116,7 @@ public class Player : Unit
                 if (Time.time >= nextAttackTime)
                 {
                     target.GetComponent<Tower>().subtractHealth(attackDamage);
-                    nextAttackTime = Time.time + 1f * attackSpeed;
+                    nextAttackTime = Time.time + 1f / attackSpeed;
                 }
             }
             else
@@ -143,7 +144,7 @@ public class Player : Unit
             if (Time.time >= nextAttackTime)
             {
                 target.GetComponent<Tower>().subtractHealth(attackDamage);
-                nextAttackTime = Time.time + 1f * attackSpeed;
+                nextAttackTime = Time.time + 1f / attackSpeed;
             }
         }
         else
@@ -174,6 +175,9 @@ public class Player : Unit
 
     void dead()
     {
+        GameObject go = Instantiate(deadParticle) as GameObject;
+        go.transform.position = transform.position;
+        Destroy(go, 1f);
         isKeepUpdatetingPath = false;
         Destroy(gameObject);
     }

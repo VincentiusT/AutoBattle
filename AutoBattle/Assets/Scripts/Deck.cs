@@ -8,6 +8,7 @@ public class Deck : MonoBehaviour
 {
     public GameObject hitAreaCircle;
     public LayerMask unwalkable;
+    public GameObject[] cover;
     public Image[] heroesInDeckUI;
     public Image nextHeroUI;
     public TextMeshProUGUI[] heroesInDeckCost;
@@ -41,6 +42,7 @@ public class Deck : MonoBehaviour
         heroesInDeckIdentity = new List<Identity>();
         heroesInQueueIdentity = new Queue<Identity>();
         originalCoin = (int)coin;
+        coin = 0;
         for (int i = 0; i < 4; i++)
         {
             heroesInDeck.Add(heroes[i]);
@@ -70,9 +72,11 @@ public class Deck : MonoBehaviour
             }
         }
 
+        checkEnoughCoin();
+
         if(coin < originalCoin)
         {
-            coin += Time.deltaTime * 10;
+            coin += Time.deltaTime * 5;
             coinText.text = coin.ToString("0");
         }
     }
@@ -86,13 +90,13 @@ public class Deck : MonoBehaviour
 
     private void dragAndDropHero()
     {
-        limit.SetActive(true);
         int cst = heroesInDeckIdentity[index].cost;
         if (cst > coin)
         {
             thereIsHero = false;
             return;
         }
+        limit.SetActive(true);
         thereIsHero = true;
         if (!cannotPickNow)
         {
@@ -109,7 +113,9 @@ public class Deck : MonoBehaviour
             }
         }
         worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         putHeroCoord = new Vector3(worldPosition.x,0.5f,worldPosition.z);
+
         if (hitAreaCircle.activeSelf)
         {
             hitAreaCircle.transform.position = putHeroCoord;
@@ -124,8 +130,8 @@ public class Deck : MonoBehaviour
 
     private void putHero()
     {
-        if (pickedHero == null) return;
-        if (Physics.OverlapSphere(pickedHero.transform.position, 1f, unwalkable).Length <= 0)
+        if (pickedHero == null) { limit.SetActive(false) ; return; }
+        if (Physics.OverlapSphere(pickedHero.transform.position, 0.8f, unwalkable).Length <= 0)
         {
             int cst = heroesInDeckIdentity[index].cost;
             coin -= cst;
@@ -159,7 +165,7 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < heroesInDeck.Count; i++)
         {
             heroesInDeckUI[i].sprite = heroesInDeckIdentity[i].deckArtwork;
-            heroesInDeckCost[index].text = heroesInDeckIdentity[i].cost.ToString("0");
+            heroesInDeckCost[i].text = heroesInDeckIdentity[i].cost.ToString("0");
             heroesInDeckUI[i].preserveAspect = true;
         }
         nextHeroUI.sprite = heroesInQueueIdentity.Peek().deckArtwork;
@@ -173,6 +179,21 @@ public class Deck : MonoBehaviour
         heroesInDeckUI[index].preserveAspect = true;
         nextHeroUI.sprite = heroesInQueueIdentity.Peek().deckArtwork;
         nextHeroUI.preserveAspect = true;
+    }
+
+    private void checkEnoughCoin()
+    {
+        for(int i=0; i<heroesInDeckIdentity.Count ;i++)
+        {
+            if(heroesInDeckIdentity[i].cost > coin)
+            {
+                cover[i].SetActive(true);
+            }
+            else
+            {
+                cover[i].SetActive(false);
+            }
+        }
     }
 
     private GameObject[] shuffle(int x, GameObject[] arr)

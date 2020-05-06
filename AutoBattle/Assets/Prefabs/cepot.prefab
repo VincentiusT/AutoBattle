@@ -311,6 +311,8 @@ MonoBehaviour:
   stoppingDst: 10
   isDrawPath: 1
   isKeepUpdatetingPath: 1
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
   playerIdentity: {fileID: 11400000, guid: 2c39ee307e60acb4984c6df5bddd9594, type: 2}
   towers: []
   enemyMask:

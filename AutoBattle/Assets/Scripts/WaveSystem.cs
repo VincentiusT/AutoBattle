@@ -6,95 +6,163 @@ using TMPro;
 
 public class WaveSystem : MonoBehaviour
 {
-    private float waveBar;
+    public enum SpawnState { SPAWNING, WAITING, COUNTING};
+
+    [System.Serializable]
+    public class Wave
+    {
+        public string name;
+        public MiniWave[] miniWave;
+        public float rate;
+    }
+    [System.Serializable]
+    public class MiniWave
+    {
+        public GameObject enemy;
+        public int count;
+    }
+
+    public Wave[] waves;
+    private int nextWave = 0;
+    private int nextMiniWave = 0;
+
+    public float restTime = 10f;
+    public float waveCountDown;
+
     public TextMeshProUGUI timerText;
-    public EnemySpawner spawner;
-
-    private float maxValue = 30;
-
-    private float[] wave;
-    private bool[] waveActive;
-
+    
     float totalTime = 70;
-    int totalWave=3;
-    int x=1;
-    bool restWave = false;
-    float restTime = 5f;
-    float originalRestTime;
+    bool isSuddenDeath=false;
+    float searchCountdown = 1f;
+
+    private SpawnState state = SpawnState.COUNTING;
 
     private void Start()
     {
-        wave = new float[totalWave+1];
-        waveActive = new bool[totalWave+1];
-        wave[0] = 0;
-       // wave[1] = 10; wave[2] = 20; wave[3] = 30;
-        for (int i = 1; i <= totalWave; i++)
-        {
-            wave[i] = wave[i - 1] + 10;
-        }
-        waveActive[1] = true;
-        waveBar = 0;
-        originalRestTime = restTime;
+        waveCountDown = restTime;
     }
 
     private void Update()
     {
-        if (restWave)
+        if(state == SpawnState.WAITING)
         {
-            restTime -= Time.deltaTime;
-            if (restTime <= 0)
+            if (!thereIsEnemy())
             {
-                restTime = originalRestTime;
-                restWave = false;
+                waveComplete();
+                return;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        if(waveCountDown <= 0)
+        {
+            if(state != SpawnState.SPAWNING)
+            {
+                StartCoroutine(spawnWave(waves[nextWave]));
             }
         }
         else
-            checkWave();
-
+        {
+            waveCountDown -= Time.deltaTime;
+        }
         timer();
     }
 
-    private void checkWave()
+    private bool thereIsEnemy()
     {
-        if (x > totalWave)
+        searchCountdown -= Time.deltaTime;
+        if (searchCountdown <= 0)
         {
-            //all wave complete
-            return;
-        }
-        if (waveActive[x])
-        {
-            spawner.spawnByWave(x);
-
-            waveBar += 0.8f * Time.deltaTime;
-            if(waveBar >= wave[x])
+            searchCountdown = 1f;
+            if (GameObject.FindGameObjectWithTag("enemy") == null)
             {
-                x++;
-                restWave=true;
-                if(x<=totalWave) waveActive[x] = true;
-                return;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void waveComplete()
+    {
+        Debug.Log("wave complete");
+
+        state = SpawnState.COUNTING;
+        waveCountDown -= Time.deltaTime;
+
+        if(nextWave+1 > waves.Length - 1)
+        {
+            nextWave = 0;
+            Debug.Log("all waves complete ");
+        }
+        else
+        {
+            nextWave++;
+            nextMiniWave = 0;
+        }
+        
+    }
+
+    private IEnumerator spawnWave(Wave wave)
+    {
+        state = SpawnState.SPAWNING;
+
+        while (nextMiniWave < wave.miniWave.Length)
+        {
+            for (int i = 0; i < wave.miniWave[nextMiniWave].count; i++)
+            {
+                spawnEnemy(wave.miniWave[nextMiniWave].enemy);
+                yield return new WaitForSeconds(1f/wave.rate);
             }
             
+            nextMiniWave++;
+            yield return new WaitForSeconds(5f);
         }
+
+        waveCountDown = restTime;
+        state = SpawnState.WAITING;
+        yield break;
+    }
+
+    private void spawnEnemy(GameObject enemy)
+    {
+        GameObject go;
+        go = Instantiate(enemy) as GameObject;
+        go.transform.SetParent(transform);
+        go.transform.position = transform.position + new Vector3(0, 0, -2);
     }
 
     void timer()
     {
-        string plusZero1 = "", plusZero2="";
-        float x = totalTime % 60;
-        float y = totalTime / 60;
-        if(x < 10)
+        if (!isSuddenDeath)
         {
-            plusZero1 = "0";
+            string plusZero1 = "", plusZero2="";
+            float x = totalTime % 60;
+            float y = totalTime / 60;
+            if(x < 10)
+            {
+                plusZero1 = "0";
+            }
+            if(y < 10)
+            {
+                plusZero2 = "0";
+            }
+            timerText.text = plusZero2+((int)y).ToString("0") + ":" + plusZero1+((int)x).ToString("0");
+            totalTime -= Time.deltaTime;
+            if (totalTime <= 0)
+            {
+                isSuddenDeath = GameManager.instance.checkWin();
+                if (isSuddenDeath)
+                {
+                    timerText.text = "SUDDEN DEATH!";
+                }
+            }
         }
-        if(y < 10)
+        else
         {
-            plusZero2 = "0";
-        }
-        timerText.text = plusZero2+((int)y).ToString("0") + ":" + plusZero1+((int)x).ToString("0");
-        totalTime -= Time.deltaTime;
-        if (totalTime <= 0)
-        {
-            GameManager.instance.checkWin();
+            isSuddenDeath = GameManager.instance.checkWin();
         }
     }
 }

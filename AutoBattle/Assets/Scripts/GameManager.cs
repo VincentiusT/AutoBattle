@@ -15,18 +15,26 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Time.timeScale = 1f;
     }
 
-    public void checkWin()
+    public bool checkWin()
     {
+        bool suddenDeath = false;
         if (totalPlayerTower < totalEnemyTower)
         {
             gameOver();
+        }
+        else if(totalPlayerTower == totalEnemyTower)
+        {
+            //sudden death
+            suddenDeath = true;
         }
         else
         {
             win();
         }
+        return suddenDeath;
     }
 
     public void gameOver()
