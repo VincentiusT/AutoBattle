@@ -1716,7 +1716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412568664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.51, y: 2.1692672, z: -0.9}
+  m_LocalPosition: {x: 12.8, y: 2.1692672, z: -0.9}
   m_LocalScale: {x: 4.24, y: 1, z: 36.854504}
   m_Children: []
   m_Father: {fileID: 981522462}
@@ -2658,14 +2658,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6223a0d2b84304eb5bc86e87c03bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridPathGizmos: 0
+  displayGridPathGizmos: 1
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 256
   towerMask:
     serializedVersion: 2
     m_Bits: 2048
-  gridWorldSize: {x: 30.75, y: 38.2}
+  gridWorldSize: {x: 22.19, y: 37.9}
   nodeRadius: 0.5
   walkableRegion:
   - terrainMask:
@@ -3935,7 +3935,6 @@ GameObject:
   - component: {fileID: 838323121}
   - component: {fileID: 838323124}
   - component: {fileID: 838323122}
-  - component: {fileID: 838323120}
   m_Layer: 11
   m_Name: enemyTower (2)
   m_TagString: EnemyTower
@@ -3958,43 +3957,6 @@ Transform:
   m_Father: {fileID: 1693934803}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &838323120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838323118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818155263b6a8b94e890ba93f3cf2cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - name: wave1
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 3
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 5
-    rate: 1
-  - name: wave2
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: fa6cec311dd025440895dc3593e1fc07,
-        type: 3}
-      count: 5
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 10
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 8
-    rate: 2
-  restTime: 20
-  waveCountDown: 0
-  timerText: {fileID: 794477156}
 --- !u!65 &838323121
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6183,6 +6145,78 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 516364274}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1431212255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1431212257}
+  - component: {fileID: 1431212256}
+  m_Layer: 0
+  m_Name: waveSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1431212256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431212255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818155263b6a8b94e890ba93f3cf2cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint:
+  - {fileID: 2069991275}
+  - {fileID: 1834958759}
+  - {fileID: 838323119}
+  waves:
+  - name: wave1
+    miniWave:
+    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
+        type: 3}
+      count: 5
+    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
+        type: 3}
+      count: 7
+    rate: 1
+  - name: wave2
+    miniWave:
+    - enemy: {fileID: 7303732919893289047, guid: fa6cec311dd025440895dc3593e1fc07,
+        type: 3}
+      count: 5
+    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
+        type: 3}
+      count: 10
+    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
+        type: 3}
+      count: 8
+    rate: 2
+  restTime: 20
+  waveCountDown: 0
+  timerText: {fileID: 794477156}
+--- !u!4 &1431212257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431212255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1434115530
 GameObject:
   m_ObjectHideFlags: 0
@@ -6210,7 +6244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434115530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.31, y: 2.1692672, z: -0.9}
+  m_LocalPosition: {x: -9.8, y: 2.1692672, z: -0.9}
   m_LocalScale: {x: 4.24, y: 1, z: 36.854504}
   m_Children: []
   m_Father: {fileID: 981522462}
@@ -8160,7 +8194,6 @@ GameObject:
   - component: {fileID: 1834958761}
   - component: {fileID: 1834958764}
   - component: {fileID: 1834958762}
-  - component: {fileID: 1834958763}
   m_Layer: 11
   m_Name: enemyTower (1)
   m_TagString: EnemyTower
@@ -8247,43 +8280,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1834958763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834958758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818155263b6a8b94e890ba93f3cf2cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - name: wave1
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 3
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 5
-    rate: 1
-  - name: wave2
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: fa6cec311dd025440895dc3593e1fc07,
-        type: 3}
-      count: 5
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 10
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 8
-    rate: 2
-  restTime: 20
-  waveCountDown: 0
-  timerText: {fileID: 794477156}
 --- !u!114 &1834958764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9233,7 +9229,6 @@ GameObject:
   - component: {fileID: 2069991276}
   - component: {fileID: 2069991280}
   - component: {fileID: 2069991277}
-  - component: {fileID: 2069991278}
   m_Layer: 11
   m_Name: enemyTower
   m_TagString: EnemyTower
@@ -9320,43 +9315,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2069991278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069991274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818155263b6a8b94e890ba93f3cf2cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - name: wave1
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 3
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 5
-    rate: 1
-  - name: wave2
-    miniWave:
-    - enemy: {fileID: 7303732919893289047, guid: fa6cec311dd025440895dc3593e1fc07,
-        type: 3}
-      count: 5
-    - enemy: {fileID: 7303732919893289047, guid: 9a458e00358b43843b0d069f4fc65803,
-        type: 3}
-      count: 10
-    - enemy: {fileID: 7303732919893289047, guid: 52531ad607d02a74a87c5fac27308dbd,
-        type: 3}
-      count: 8
-    rate: 2
-  restTime: 20
-  waveCountDown: 0
-  timerText: {fileID: 794477156}
 --- !u!114 &2069991280
 MonoBehaviour:
   m_ObjectHideFlags: 0

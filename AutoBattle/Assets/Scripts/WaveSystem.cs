@@ -22,6 +22,7 @@ public class WaveSystem : MonoBehaviour
         public int count;
     }
 
+    public List<Transform> spawnPoint;
     public Wave[] waves;
     private int nextWave = 0;
     private int nextMiniWave = 0;
@@ -34,6 +35,7 @@ public class WaveSystem : MonoBehaviour
     float totalTime = 70;
     bool isSuddenDeath=false;
     float searchCountdown = 1f;
+    int tempIdx = 0;
 
     private SpawnState state = SpawnState.COUNTING;
 
@@ -129,9 +131,28 @@ public class WaveSystem : MonoBehaviour
     private void spawnEnemy(GameObject enemy)
     {
         GameObject go;
-        go = Instantiate(enemy) as GameObject;
+        go = Instantiate(enemy, spawnPoint[getRandomIndex()].position + new Vector3(0, 0, -2),Quaternion.identity) as GameObject;
         go.transform.SetParent(transform);
-        go.transform.position = transform.position + new Vector3(0, 0, -2);
+    }
+
+    private int getRandomIndex()
+    {
+        if (spawnPoint.Count <= 0) return 0;
+        for(int i = 0; i < spawnPoint.Count; i++)
+        {
+            if (spawnPoint[i] == null)
+            {
+                Debug.Log("harisnya sa");
+                spawnPoint.RemoveAt(i);
+            }
+        }
+        int idx = 0;
+        while (idx == tempIdx)
+        {
+            idx = Random.Range(0, spawnPoint.Count);
+        }
+        tempIdx = idx;
+        return idx;
     }
 
     void timer()

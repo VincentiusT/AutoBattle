@@ -17,7 +17,7 @@ MonoBehaviour:
   deckArtwork: {fileID: 21300000, guid: 3d21157eb53154340a9eaf6da948e7e4, type: 3}
   cost: 20
   health: 200
-  speed: 3
+  speed: 2
   attack: 10
   attackSpeed: 1
   attackRadius: 2
