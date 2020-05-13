@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject GameOverPanel;
     public GameObject winPanel;
+    public GameObject[] stars;
+    [HideInInspector]
     public int totalPlayerTower, totalEnemyTower;
 
     private void Awake()
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public bool checkWin()
+    public bool checkSuddendeath()
     {
         bool suddenDeath = false;
         if (totalPlayerTower < totalEnemyTower)
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            win();
+            win(false);
         }
         return suddenDeath;
     }
@@ -44,9 +46,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void win()
+    public void win(bool allTowerDestroyed)
     {
         winPanel.SetActive(true);
+        if (allTowerDestroyed)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                stars[i].SetActive(true);
+            }
+        }
+        else
+        {
+            for(int i=0;i< (3 - totalEnemyTower); i++)
+            {
+                stars[i].SetActive(true);
+            }
+        }
         Time.timeScale = 0f;
     }
 

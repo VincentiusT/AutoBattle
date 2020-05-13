@@ -131,7 +131,7 @@ public class Deck : MonoBehaviour
     private void putHero()
     {
         if (pickedHero == null) { limit.SetActive(false) ; return; }
-        if (Physics.OverlapSphere(pickedHero.transform.position, 0.5f, unwalkable).Length <= 0)
+        if (hitAreaCircle.GetComponent<SpriteRenderer>().color != cannotPutHeroColor)
         {
             int cst = heroesInDeckIdentity[index].cost;
             coin -= cst;

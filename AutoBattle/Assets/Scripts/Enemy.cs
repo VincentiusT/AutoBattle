@@ -144,6 +144,7 @@ public class Enemy : Unit
             tempGO = target.gameObject;
             if (Time.time >= nextAttackTime)
             {
+                Debug.Log("hit dari enemy");
                 target.GetComponent<Tower>().subtractHealth(attackDamage);
                 nextAttackTime = Time.time + 1f / attackSpeed;
             }

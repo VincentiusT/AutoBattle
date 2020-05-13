@@ -17,4 +17,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("play");
     }
+
+    public void toHeroes()
+    {
+        SceneManager.LoadScene("HeroSelect");
+    }
 }

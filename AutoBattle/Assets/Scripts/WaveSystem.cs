@@ -36,6 +36,7 @@ public class WaveSystem : MonoBehaviour
     bool isSuddenDeath=false;
     float searchCountdown = 1f;
     int tempIdx = 0;
+    bool stopTimer = false;
 
     private SpawnState state = SpawnState.COUNTING;
 
@@ -46,7 +47,8 @@ public class WaveSystem : MonoBehaviour
 
     private void Update()
     {
-        if(state == SpawnState.WAITING)
+        if (!stopTimer) timer();
+        if (state == SpawnState.WAITING)
         {
             if (!thereIsEnemy())
             {
@@ -70,7 +72,6 @@ public class WaveSystem : MonoBehaviour
         {
             waveCountDown -= Time.deltaTime;
         }
-        timer();
     }
 
     private bool thereIsEnemy()
@@ -142,7 +143,6 @@ public class WaveSystem : MonoBehaviour
         {
             if (spawnPoint[i] == null)
             {
-                Debug.Log("harisnya sa");
                 spawnPoint.RemoveAt(i);
             }
         }
@@ -174,16 +174,18 @@ public class WaveSystem : MonoBehaviour
             totalTime -= Time.deltaTime;
             if (totalTime <= 0)
             {
-                isSuddenDeath = GameManager.instance.checkWin();
+                isSuddenDeath = GameManager.instance.checkSuddendeath();
                 if (isSuddenDeath)
                 {
                     timerText.text = "SUDDEN DEATH!";
                 }
+                else stopTimer = true;
             }
         }
         else
         {
-            isSuddenDeath = GameManager.instance.checkWin();
+            isSuddenDeath = GameManager.instance.checkSuddendeath();
+            if (!isSuddenDeath) stopTimer=true;
         }
     }
 }

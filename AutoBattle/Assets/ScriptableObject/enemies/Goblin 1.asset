@@ -20,6 +20,6 @@ MonoBehaviour:
   speed: 2
   attack: 5
   attackSpeed: 2
-  attackRadius: 2
+  attackRadius: 3
   spawnTime: 1
   type: 1

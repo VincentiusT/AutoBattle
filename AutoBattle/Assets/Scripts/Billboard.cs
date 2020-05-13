@@ -6,11 +6,17 @@ public class Billboard : MonoBehaviour
 {
     public Transform anchor;
     private Transform cam;
-    private Vector3 offset = new Vector3(0, 0, 1.5f);
+    public Vector3 offset;
 
     private void Awake()
     {
+        
         cam = Camera.main.transform;
+    }
+
+    private void Start()
+    {
+        if (offset == Vector3.zero)  offset = new Vector3(0, 0, 1.5f); 
     }
 
     private void Update()

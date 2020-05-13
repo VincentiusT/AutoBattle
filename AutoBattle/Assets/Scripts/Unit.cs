@@ -9,9 +9,9 @@ public class Unit : MonoBehaviour
     const float minPathUpdateTime = 0.2f;
     protected Transform target;
     protected float speed = 0f;
-    public float turnDst = 5;
-    public float turnSpeed = 3;
-    public float stoppingDst = 10;
+    private float turnDst = 0.5f;
+    private float turnSpeed = 5;
+    private float stoppingDst = 10;
     public bool isDrawPath;
 
     public bool isKeepUpdatetingPath=true;
@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
         if (pathSuccess)
         {
             //path = newPath;
-            if (transform == null) return;
+            //if (transform == null) return;
             path = new Path(newPath,transform.position,turnDst, stoppingDst);
             StopCoroutine("followPath");
             StartCoroutine("followPath");
@@ -42,10 +42,12 @@ public class Unit : MonoBehaviour
     {
         if (Time.timeSinceLevelLoad < 0.3f)
             yield return new WaitForSeconds(0.3f);
-       // PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-
-       if (transform == null)yield return null;
-       PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
+        // PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        if(transform!=null && target != null)
+        {
+            PathRequest pr = new PathRequest(transform.position, target.position, OnPathFound);
+            PathRequestManager.RequestPath(pr);
+        }
 
         float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
         Vector3 targetOldPos = target.position;

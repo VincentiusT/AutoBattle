@@ -47,7 +47,7 @@ public class Tower : MonoBehaviour
         }
         else if (mainTowerEnemy)
         {
-            GameManager.instance.win();
+            GameManager.instance.win(true);
         }
         Destroy(gameObject);
         

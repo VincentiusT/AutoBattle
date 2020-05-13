@@ -19,7 +19,7 @@ public class Player : Unit
     private float health;
     private float spawnTime;
     private int type;
-    public Sprite deckArtwork; 
+    private Sprite deckArtwork; 
 
     private float radius = 6f;
     private float attackDamage;

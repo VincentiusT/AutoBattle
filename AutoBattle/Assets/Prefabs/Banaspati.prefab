@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 1085760464914812291}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1085760463857581719
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1085760463956808277}
   - component: {fileID: 1085760463956808276}
-  - component: {fileID: 1085760463956808272}
+  - component: {fileID: -7033629675803489958}
   m_Layer: 13
   m_Name: Banaspati
   m_TagString: Untagged
@@ -306,9 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d58a0a44fc5c9a4199e2131e4ea9b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnDst: 0.1
-  turnSpeed: 3
-  stoppingDst: 10
   isDrawPath: 1
   isKeepUpdatetingPath: 1
   deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
@@ -322,8 +320,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 14592
   isPlaced: 0
-  deckArtwork: {fileID: 0}
---- !u!136 &1085760463956808272
+--- !u!136 &-7033629675803489958
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,7 +331,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1085760464535300711
