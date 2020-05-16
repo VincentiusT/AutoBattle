@@ -2,69 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Unit
+public class Player : Unit
 {
     public GameObject deadParticle;
-    public Identity enemyIdentity;
+    public Identity playerIdentity;
     public List<GameObject> towers;
-    public LayerMask playerMask;
+    public LayerMask enemyMask;
+    public LayerMask unwalkableMask;
+    public bool isPlaced=false;
 
-    private Collider[] players;
+    private Collider[] enemies;
     private GameObject child;
-    private Transform currentPlayer;
+    private Transform currentEnemy;
     private float attackRadius;
     private float attackSpeed;
     private float health;
     private float spawnTime;
     private int type;
+    private Sprite deckArtwork; 
 
     private float radius = 6f;
     private float attackDamage;
     private float nextAttackTime;
     private bool isLocked;
+    private bool canAttack;
     private GameObject tempGO;
 
     private HealthBar healthBar;
     private Transform cam;
 
-    void Start()
+    private void Start()    
     {
         cam = Camera.main.transform;
         child = transform.GetChild(0).gameObject;
         towers = new List<GameObject>();
-        towers.AddRange(GameObject.FindGameObjectsWithTag("PlayerTower"));
-        
+        towers.AddRange(GameObject.FindGameObjectsWithTag("EnemyTower"));
         healthBar = GetComponentInChildren<HealthBar>();
-
-        //child.GetComponent<SpriteRenderer>().sprite = enemyIdentity.artwork;
-        attackDamage = enemyIdentity.attack;
-        attackSpeed = enemyIdentity.attackSpeed;
-        attackRadius = enemyIdentity.attackRadius;
-        health = enemyIdentity.health;
-        spawnTime = enemyIdentity.spawnTime;
-        speed = enemyIdentity.speed;
+        //child.GetComponent<SpriteRenderer>().sprite = playerIdentity.artwork;
+        attackDamage = playerIdentity.attack;
+        attackSpeed = playerIdentity.attackSpeed;
+        attackRadius = playerIdentity.attackRadius;
+        health = playerIdentity.health;
+        spawnTime = playerIdentity.spawnTime;
+        speed = playerIdentity.speed;
+        deckArtwork = playerIdentity.deckArtwork;
+        type = playerIdentity.type;
         target = getClosestGameObject(towers);
-        type = enemyIdentity.type;
 
         healthBar.setMaxHealth((int)health);
+
         healthBar.gameObject.SetActive(false);
 
-        GameManager.instance.totalPlayerTower = towers.Count;
-        StartCoroutine(updatePath());
+        GameManager.instance.totalEnemyTower = towers.Count;
+        if (radius < attackRadius) radius = attackRadius;
+        
     }
-    
-    void Update()
+
+    private void Update()
     {
-        if (type == 1)
+        if (!isPlaced || !canAttack) return;
+        if(type==1) //attack normal
         {
             moveNormal();
         }
-        else if (type == 2)
+        else if(type ==2) //attack tower
         {
             moveTower();
         }
-
-        if (health <= 0)
+        
+        if(health <= 0)
         {
             dead();
         }
@@ -72,42 +78,36 @@ public class Enemy : Unit
 
     private void moveNormal()
     {
-        if (!isLocked) players = checkPlayerInRadius(radius);
-        
-        if (players.Length > 0 && !isLocked)
+        if (!isLocked) enemies = checkEnemyInRadius(radius);
+
+        if (enemies.Length > 0 && !isLocked)
         {
-            currentPlayer = getClosestGameObject(players);
-            if (currentPlayer.GetComponent<Player>().isPlaced)
+            currentEnemy = getClosestGameObject(enemies);
+            if (Vector3.Distance(transform.position, currentEnemy.position) <= attackRadius)
             {
-                if (Vector3.Distance(transform.position, currentPlayer.position) < attackRadius)
+                speed = 0;
+                if (Time.time >= nextAttackTime)
                 {
-                    if (Time.time >= nextAttackTime)
-                    {
-                        attack(currentPlayer.gameObject);
-                        nextAttackTime = Time.time + 1f / attackSpeed;
-                    }
+                    attack(currentEnemy.gameObject);
+                    nextAttackTime = Time.time + 1f / attackSpeed;
                 }
-                else
-                {
-                    speed = enemyIdentity.speed;
-                }
-                target = currentPlayer;
             }
+            else
+            {
+                speed = playerIdentity.speed;
+            }
+            target = currentEnemy;
         }
         else
         {
             if (isLocked && target == null)
             {
-                
                 isLocked = false;
                 towers.Remove(tempGO);
-                GameManager.instance.totalPlayerTower = towers.Count;
+                GameManager.instance.totalEnemyTower = towers.Count;
             }
-            if (towers.Count <= 0) return; 
-            if (!isLocked)
-            {
-                target = getClosestGameObject(towers);
-            }
+            if (towers.Count <= 0) return;
+            if (!isLocked) target = getClosestGameObject(towers);
             if (Vector3.Distance(transform.position, target.position) <= attackRadius)
             {
                 speed = 0;
@@ -121,10 +121,9 @@ public class Enemy : Unit
             }
             else
             {
-                speed = enemyIdentity.speed;
+                speed = playerIdentity.speed;
             }
         }
-
     }
 
     private void moveTower()
@@ -133,9 +132,9 @@ public class Enemy : Unit
         {
             isLocked = false;
             towers.Remove(tempGO);
-            GameManager.instance.totalPlayerTower = towers.Count;
+            GameManager.instance.totalEnemyTower = towers.Count;
         }
-        if (towers.Count <= 0) return; 
+        if (towers.Count <= 0) return;
         if (!isLocked) target = getClosestGameObject(towers);
         if (Vector3.Distance(transform.position, target.position) <= attackRadius)
         {
@@ -144,40 +143,34 @@ public class Enemy : Unit
             tempGO = target.gameObject;
             if (Time.time >= nextAttackTime)
             {
-                Debug.Log("hit dari enemy");
                 target.GetComponent<Tower>().subtractHealth(attackDamage);
                 nextAttackTime = Time.time + 1f / attackSpeed;
             }
         }
         else
         {
-            speed = enemyIdentity.speed;
+            speed = playerIdentity.speed;
         }
     }
 
-    private void attack(GameObject player)
+    private Collider[] checkEnemyInRadius(float _radius)
     {
-        speed = 0;
-        if (player != null)
+        return Physics.OverlapSphere(transform.position, _radius, enemyMask);
+    }
+
+    private void attack(GameObject enemy)
+    {
+        if(enemy != null)
         {
-            player.GetComponent<Player>().subtractHealth(attackDamage);
+            enemy.GetComponent<Enemy>().subtractHealth(attackDamage);
         }
     }
 
     public void subtractHealth(float damage)
     {
+        healthBar.gameObject.SetActive(true);
         health -= damage;
-        if (healthBar != null)
-        {
-            healthBar.gameObject.SetActive(true);
-            healthBar.setHealth((int)health);
-        }
-    }
-
-    private Collider[] checkPlayerInRadius(float _radius)
-    {
-        
-        return Physics.OverlapSphere(transform.position, _radius, playerMask);
+        healthBar.setHealth((int)health);
     }
 
     void dead()
@@ -188,4 +181,14 @@ public class Enemy : Unit
         isKeepUpdatetingPath = false;
         Destroy(gameObject);
     }
+
+    public IEnumerator spawnThisPlayer()
+    {
+        isPlaced = true;
+        yield return new WaitForSeconds(playerIdentity.spawnTime);
+        canAttack = true;
+        StartCoroutine(updatePath());
+    }
+
+    
 }

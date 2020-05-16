@@ -8,7 +8,6 @@ public class Identity : ScriptableObject
 {
     public new string name;
 
-    public Sprite artwork;
     public Sprite deckArtwork;
 
     public int cost;

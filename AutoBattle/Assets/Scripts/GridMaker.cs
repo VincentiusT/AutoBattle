@@ -56,7 +56,7 @@ public class GridMaker : MonoBehaviour
             {
                 Vector3 worldPoint = bottomLeftWorld + Vector3.right * (i * nodeDiameter + nodeRadius) + Vector3.forward * (j * nodeDiameter + nodeRadius);
                 bool walkable = !Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask);
-                bool isTower = !Physics.CheckSphere(worldPoint, nodeRadius, towerMask);
+                bool isTower = Physics.CheckSphere(worldPoint, nodeRadius, towerMask);
 
                 int movementPenalty = 0;
                 //raycast
@@ -173,7 +173,7 @@ public class GridMaker : MonoBehaviour
             {
                 Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
                 Gizmos.color = (n.walkable) ? Gizmos.color : Color.red;
-                Gizmos.color = (n.isTower) ? Gizmos.color : Color.blue;
+                Gizmos.color = (!n.isTower) ? Gizmos.color : Color.blue;
                 Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter-0.2f ));
             }
         }

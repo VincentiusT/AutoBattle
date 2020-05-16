@@ -5,12 +5,10 @@ using System;
 
 public class PathFinding : MonoBehaviour
 {
-    //PathRequestManager requestManager;
     private GridMaker grid;
 
     private void Awake()
     {
-        //requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<GridMaker>();
     }
   
@@ -23,7 +21,7 @@ public class PathFinding : MonoBehaviour
 
         Node startNode = grid.nodeFromWorldPoint(request.pathStart);
         Node targetNode = grid.nodeFromWorldPoint(request.pathEnd);
-        if (startNode.walkable && startNode.walkable || (!startNode.walkable && targetNode.isTower))
+        if ((startNode.walkable && targetNode.walkable )|| (startNode.walkable && targetNode.isTower))
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
             HashSet<Node> closeSet = new HashSet<Node>();
@@ -42,7 +40,7 @@ public class PathFinding : MonoBehaviour
 
                 foreach (Node neighbour in grid.getNeighbours(currentNode))
                 {
-                    if (!neighbour.walkable || (!neighbour.isTower && neighbour!=targetNode)||closeSet.Contains(neighbour)) continue;
+                    if (!neighbour.walkable || (neighbour.isTower && neighbour!=targetNode)||closeSet.Contains(neighbour)) continue;
 
                     int newMovementCostToNeighbour = currentNode.g_cost + getDistance(currentNode, neighbour) + neighbour.movementPenalty;
                     if (newMovementCostToNeighbour < neighbour.g_cost || !openSet.Contains(neighbour))

@@ -998,8 +998,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281677280
-  m_fontColor: {r: 0.8773585, g: 0.2069242, b: 0.2069242, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1179,6 +1179,7 @@ GameObject:
   - component: {fileID: 1978589449}
   - component: {fileID: 1978589448}
   - component: {fileID: 1978589447}
+  - component: {fileID: 1978589450}
   m_Layer: 5
   m_Name: heroSelect
   m_TagString: Untagged
@@ -1204,7 +1205,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 54.99997}
-  m_SizeDelta: {x: 461.7, y: 86.6}
+  m_SizeDelta: {x: 256, y: 57.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978589447
 MonoBehaviour:
@@ -1273,7 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.8396226, g: 0.21386614, b: 0.21386614, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1296,6 +1297,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978589445}
   m_CullTransparentMesh: 0
+--- !u!114 &1978589450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978589445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 0, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2135932729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -544}
+  m_AnchoredPosition: {x: 2, y: -463}
   m_SizeDelta: {x: 664.7, y: 664.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135932731
