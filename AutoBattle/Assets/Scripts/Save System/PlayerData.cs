@@ -6,11 +6,11 @@ using System;
 [System.Serializable]
 public class PlayerData
 {
-    public int highscore;
+    public int star;
 
     public PlayerData(Inventory inventory)
     {
     
-        highscore = Inventory.highscore;
+        star = Inventory.star;
     }
 }

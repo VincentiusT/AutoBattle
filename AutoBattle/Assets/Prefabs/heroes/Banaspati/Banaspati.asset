@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Banaspati
   m_EditorClassIdentifier: 
   name: Banaspati
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: c281e55716845a54c9d233b73dbe9906, type: 3}
+  deckArtwork: {fileID: 21300000, guid: a034e1ec2504cf94cb61aded78e3f617, type: 3}
   cost: 10
   health: 200
   speed: 2

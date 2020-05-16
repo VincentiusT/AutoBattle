@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Goblin 2
   m_EditorClassIdentifier: 
   name: Goblin
-  artwork: {fileID: 21300000, guid: 9a9e6ac27d87c4b47825eea846d9989a, type: 3}
   deckArtwork: {fileID: 0}
   cost: 0
   health: 50

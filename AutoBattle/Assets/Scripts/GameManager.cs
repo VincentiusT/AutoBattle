@@ -55,13 +55,16 @@ public class GameManager : MonoBehaviour
             {
                 stars[i].SetActive(true);
             }
+            Inventory.star += 3;
         }
         else
         {
-            for(int i=0;i< (3 - totalEnemyTower); i++)
+            int str = 3 - totalEnemyTower;
+            for (int i=0;i< str; i++)
             {
                 stars[i].SetActive(true);
             }
+            Inventory.star += str;
         }
         Time.timeScale = 0f;
     }

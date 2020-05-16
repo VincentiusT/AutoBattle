@@ -5,7 +5,7 @@ using System;
 
 public class Inventory : MonoBehaviour
 {
-    public static int highscore;
+    public static int star;
     public static bool load = true;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
-        highscore = data.highscore;
+        star = data.star;
         
     }
 }
