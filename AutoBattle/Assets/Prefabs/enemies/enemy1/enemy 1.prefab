@@ -308,7 +308,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &7303732919229299111
 MonoBehaviour:
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 7303732919893289002}
   - component: {fileID: 7303732919893289001}
   - component: {fileID: 7303732919893289000}
-  - component: {fileID: 8010033749341387916}
+  - component: {fileID: 2097288811799727821}
   m_Layer: 12
   m_Name: enemy 1
   m_TagString: enemy
@@ -453,14 +453,14 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7303732919893289047}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 995f58a975201d44ab265768747bd417, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8010033749341387916
+--- !u!114 &2097288811799727821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -476,7 +476,7 @@ MonoBehaviour:
   isKeepUpdatetingPath: 1
   deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
     type: 3}
-  enemyIdentity: {fileID: 11400000, guid: 49922d6692ed6ea48ae4b60f1a498239, type: 2}
+  enemyIdentity: {fileID: 11400000, guid: dfb408f5305bd6b469a64b2dc9c77ccc, type: 2}
   towers: []
   playerMask:
     serializedVersion: 2
@@ -491,8 +491,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7303732920584883112}
   - component: {fileID: 7303732920584883113}
+  - component: {fileID: 516692814552704736}
   m_Layer: 12
-  m_Name: sprite (1)
+  m_Name: kunti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -562,3 +563,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &516692814552704736
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303732920584883159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3eed52a2584d1d4d8964b0fd3366028, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

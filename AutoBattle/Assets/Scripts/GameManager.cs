@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public Inventory inven;
     public bool isGameOver;
+    public GameObject howToPlayPanel;
     public GameObject pausePanel;
     public GameObject GameOverPanel;
     public GameObject winPanel;
     public GameObject[] stars;
     [HideInInspector]
-    public int totalPlayerTower, totalEnemyTower;
+    public int totalPlayerTower=3, totalEnemyTower=3;
 
     private void Awake()
     {
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool checkSuddendeath()
     {
         bool suddenDeath = false;
+        totalEnemyTower = GameObject.FindGameObjectsWithTag("EnemyTower").Length;
+        totalPlayerTower = GameObject.FindGameObjectsWithTag("PlayerTower").Length;
         if (totalPlayerTower < totalEnemyTower)
         {
             gameOver();
@@ -59,13 +63,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            int str = 3 - totalEnemyTower;
+            int t = GameObject.FindGameObjectsWithTag("EnemyTower").Length;
+            int str = 3 - t;
             for (int i=0;i< str; i++)
             {
                 stars[i].SetActive(true);
             }
             Inventory.star += str;
         }
+        inven.Save();
         Time.timeScale = 0f;
     }
 
@@ -89,8 +95,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void nextStage()
+    {
+        if(SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene("Level");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
     public void home()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void openHowToPlay()
+    {
+        howToPlayPanel.SetActive(true);
+    }
+
+    public void closeHowToPlay()
+    {
+        howToPlayPanel.SetActive(false);
     }
 }

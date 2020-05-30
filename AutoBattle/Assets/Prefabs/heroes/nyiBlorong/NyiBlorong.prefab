@@ -133,7 +133,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1085760463847996417
 MonoBehaviour:
@@ -270,10 +270,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085760463956808277}
-  - component: {fileID: 1085760463956808276}
   - component: {fileID: 3702698608748639480}
+  - component: {fileID: 4083465120122301592}
   m_Layer: 13
-  m_Name: Sangkuriang
+  m_Name: NyiBlorong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,31 +295,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1085760463956808276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085760463956808273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d58a0a44fc5c9a4199e2131e4ea9b43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDrawPath: 1
-  isKeepUpdatetingPath: 1
-  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
-    type: 3}
-  playerIdentity: {fileID: 11400000, guid: 1b04fc338a978234480e052ad9698474, type: 2}
-  towers: []
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 14592
-  isPlaced: 0
 --- !u!136 &3702698608748639480
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -334,6 +309,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4083465120122301592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085760463956808273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8e7ecd6a8ba5d4e851ceb4b7e50a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawPath: 0
+  isKeepUpdatetingPath: 1
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
+  playerIdentity: {fileID: 11400000, guid: 1b04fc338a978234480e052ad9698474, type: 2}
+  towers: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  isPlaced: 0
+  snakeObject: {fileID: 5472374478978266370, guid: d007036932e6ace4582e7b2d8db7ad84,
+    type: 3}
 --- !u!1 &1085760464535300711
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,8 +448,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1085760464914812291}
   - component: {fileID: 1085760464914812300}
+  - component: {fileID: 9158190056164180550}
   m_Layer: 13
-  m_Name: sprite
+  m_Name: blorong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,7 +509,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 73ad9086e53aad544b7fc2278e0db3d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -517,3 +520,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &9158190056164180550
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085760464914812302}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 48757f476db5053468fa40f18508b827, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

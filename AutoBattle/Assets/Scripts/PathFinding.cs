@@ -15,7 +15,6 @@ public class PathFinding : MonoBehaviour
 
     public void findPath(PathRequest request, Action<PathResult> callback)
     {
-
         Vector3[] wayPoints = new Vector3[0];
         bool pathSuccess = false;
 

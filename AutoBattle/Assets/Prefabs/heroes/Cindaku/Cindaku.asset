@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Cindaku
   m_EditorClassIdentifier: 
   name: Cindaku
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 9a9e6ac27d87c4b47825eea846d9989a, type: 3}
+  deckArtwork: {fileID: 21300000, guid: 5cb01ea2e7d32e54e97e4708a6b4ab24, type: 3}
   cost: 30
-  health: 50
-  speed: 2
-  attack: 5
+  health: 380
+  speed: 2.5
+  attack: 15
   attackSpeed: 2
   attackRadius: 2
   spawnTime: 1
   type: 1
+  desc: makhluk setengah manusia setengah harimau yang hidup di lereng Gunung Kerinci.
+    Makhluk ini telah ada sejak ratusan tahun yang lalu dan diberi tugas untuk menjaga
+    hubungan antara manusia dan harimau yang sudah sejak lama tidak akur

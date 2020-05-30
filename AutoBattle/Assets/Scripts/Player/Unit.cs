@@ -10,9 +10,10 @@ public class Unit : MonoBehaviour
     protected Transform target;
     protected float speed = 0f;
     private float turnDst = 0.5f;
-    private float turnSpeed = 5;
+    private float turnSpeed = 10;
     private float stoppingDst = 10;
     public bool isDrawPath;
+    protected bool isAttacking = false;
 
     public bool isKeepUpdatetingPath=true;
     Vector3 unitPos;
@@ -31,8 +32,6 @@ public class Unit : MonoBehaviour
     {
         if (pathSuccess)
         {
-            //path = newPath;
-            //if (transform == null) return;
             path = new Path(newPath,transform.position,turnDst, stoppingDst);
             StopCoroutine("followPath");
             StartCoroutine("followPath");
@@ -46,19 +45,23 @@ public class Unit : MonoBehaviour
         // PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
         if(transform!=null && target != null)
         {
+
             PathRequest pr = new PathRequest(transform.position, target.position, OnPathFound);
             PathRequestManager.RequestPath(pr);
         }
-
         float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
-        Vector3 targetOldPos = target.position;
+        Vector3 targetOldPos=Vector3.zero;
+        if (target != null)
+            targetOldPos = target.position;
         while (isKeepUpdatetingPath)
         {
             yield return new WaitForSeconds(minPathUpdateTime);
             if (target != null)
             {
+
                 if((target.position - targetOldPos).sqrMagnitude > sqrMoveThreshold)
                 {
+
                     PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
                     targetOldPos = target.position;
                 }
@@ -68,23 +71,9 @@ public class Unit : MonoBehaviour
 
     IEnumerator followPath()
     {
-        //Vector3 currentWayPoint = path[0];// --kode lama sebelum pake class path
-
-        //while (true)
-        //{
-        //    if (transform.position == currentWayPoint)
-        //    {
-        //        targetIndex++;
-        //        if (targetIndex >= path.Length) yield break;
-
-        //        currentWayPoint = path[targetIndex];
-        //    }
-        //    transform.position = Vector3.MoveTowards(transform.position, currentWayPoint, speed * Time.deltaTime);
-        //    yield return null;
-        //}
         bool followingPath = true;
         int pathIndex = 0;
-        transform.LookAt(path.lookPoints[0]);
+        //transform.LookAt(path.lookPoints[0]);
 
         float speedPercent = 1;
 
@@ -112,8 +101,12 @@ public class Unit : MonoBehaviour
                         followingPath = false;
                     }
                 }
-                Quaternion targetRotaion = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotaion, Time.deltaTime * turnSpeed);
+                Quaternion targetRotation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+                Quaternion targetRotationInY = new Quaternion(0,targetRotation.y,0,targetRotation.w); 
+               if(!isAttacking)
+                   transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationInY, Time.deltaTime * turnSpeed);
+
+                //transform.rotation = targetRotationInY;
                 transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
             }
 
@@ -164,20 +157,8 @@ public class Unit : MonoBehaviour
         {
 
             path.DrawWithGizmos(transform.position);
-            //for (int i = targetIndex; i < path.lookPoints.Length; i++)
-            //{
-            //    Gizmos.color = Color.black;
-            //    Gizmos.DrawCube(path.lookPoints[i], Vector3.one );
 
-            //    if (i == targetIndex)
-            //    {
-            //        Gizmos.DrawLine(transform.position, path.lookPoints[i]);
-            //    }
-            //    else
-            //    {
-            //        Gizmos.DrawLine(path.lookPoints[i - 1], path.lookPoints[i]);
-            //    }
-            //}
         }
     }
+
 }

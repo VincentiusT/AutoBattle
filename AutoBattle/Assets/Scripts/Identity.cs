@@ -18,4 +18,5 @@ public class Identity : ScriptableObject
     public float attackRadius;
     public float spawnTime;
     public int type;
+    public string desc;
 }

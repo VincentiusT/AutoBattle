@@ -32,7 +32,7 @@ public class WaveSystem : MonoBehaviour
 
     public TextMeshProUGUI timerText;
     
-    float totalTime = 70;
+    float totalTime = 120;
     bool isSuddenDeath=false;
     float searchCountdown = 1f;
     int tempIdx = 0;
@@ -132,20 +132,37 @@ public class WaveSystem : MonoBehaviour
     private void spawnEnemy(GameObject enemy)
     {
         GameObject go;
-        go = Instantiate(enemy, spawnPoint[getRandomIndex()].position + new Vector3(0, 0, -2),Quaternion.identity) as GameObject;
+        go = Instantiate(enemy, getRandomSpawnPoint().position + new Vector3(0, 0, -2),Quaternion.identity) as GameObject;
         go.transform.SetParent(transform);
     }
 
-    private int getRandomIndex()
+    private Transform getRandomSpawnPoint()
     {
-        if (spawnPoint.Count <= 0) return 0;
-        for(int i = 0; i < spawnPoint.Count; i++)
+        Transform point;
+
+        for (int i = 0; i < spawnPoint.Count; i++)
         {
             if (spawnPoint[i] == null)
             {
                 spawnPoint.RemoveAt(i);
             }
         }
+        if (spawnPoint.Count <= 1) return spawnPoint[0];
+        point = spawnPoint[getRandomIndex()];
+
+        return point;
+    }
+
+    private int getRandomIndex()
+    {
+        //for(int i = 0; i < spawnPoint.Count; i++)
+        //{
+        //    if (spawnPoint[i] == null)
+        //    {
+        //        spawnPoint.RemoveAt(i);
+        //    }
+        //}
+        //if (spawnPoint.Count <= 1) return 0;
         int idx = 0;
         while (idx == tempIdx)
         {

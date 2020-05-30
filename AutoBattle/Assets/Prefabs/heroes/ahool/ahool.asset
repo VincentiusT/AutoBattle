@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
   m_Name: ahool
   m_EditorClassIdentifier: 
-  name: ahool
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 78d70fd002d06a748a3eb8a54e3d3377, type: 3}
+  name: Ahool
+  deckArtwork: {fileID: 21300000, guid: 96fc11ffe7378eb43a50a1a380d8e779, type: 3}
   cost: 20
   health: 200
   speed: 3
-  attack: 10
+  attack: 20
   attackSpeed: 1
   attackRadius: 2
   spawnTime: 1
   type: 1
+  desc: Kelelawar raksasa yang belum diketahui betul keberadaanya, dan diduga berasal
+    dari daerah Jawa

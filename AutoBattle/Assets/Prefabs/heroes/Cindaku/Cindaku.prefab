@@ -133,7 +133,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1085760463847996417
 MonoBehaviour:
@@ -270,8 +270,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085760463956808277}
-  - component: {fileID: 1085760463956808276}
   - component: {fileID: 5194609044995180630}
+  - component: {fileID: 8597159079616261298}
   m_Layer: 13
   m_Name: Cindaku
   m_TagString: Untagged
@@ -295,31 +295,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1085760463956808276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085760463956808273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d58a0a44fc5c9a4199e2131e4ea9b43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDrawPath: 1
-  isKeepUpdatetingPath: 1
-  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
-    type: 3}
-  playerIdentity: {fileID: 11400000, guid: b06313058331ddd4da0c3b4cb530b0a1, type: 2}
-  towers: []
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 14592
-  isPlaced: 0
 --- !u!136 &5194609044995180630
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -334,6 +309,31 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8597159079616261298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085760463956808273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8148ddfbf791c488932087cf5b3151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawPath: 0
+  isKeepUpdatetingPath: 1
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
+  playerIdentity: {fileID: 11400000, guid: b06313058331ddd4da0c3b4cb530b0a1, type: 2}
+  towers: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  isPlaced: 0
 --- !u!1 &1085760464535300711
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1085760464914812291}
   - component: {fileID: 1085760464914812300}
+  - component: {fileID: 2104916851722299565}
   m_Layer: 13
   m_Name: sprite
   m_TagString: Untagged
@@ -517,3 +518,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2104916851722299565
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085760464914812302}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 74765395b698eb84f8b504599ff128c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

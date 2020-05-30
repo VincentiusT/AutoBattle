@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c014acb1a68543970221951aabff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthColor: {fileID: 8774351621861192958}
   maxHealth: 0
 --- !u!114 &8774351621237841485
 MonoBehaviour:
@@ -288,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &8774351622659307489
 GameObject:
   m_ObjectHideFlags: 0

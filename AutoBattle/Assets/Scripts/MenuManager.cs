@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         starText.text = Inventory.star.ToString("0");
     }
 
@@ -30,7 +31,7 @@ public class MenuManager : MonoBehaviour
 
     public void play()
     {
-        SceneManager.LoadScene("play");
+        SceneManager.LoadScene("Level");
     }
 
     public void toHeroes()

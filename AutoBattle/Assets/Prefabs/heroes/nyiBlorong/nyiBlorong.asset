@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
   m_Name: nyiBlorong
   m_EditorClassIdentifier: 
-  name: nyiBlorong
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 42521fbda0bcdc547bd27339d253b9b9, type: 3}
+  name: Nyi Blorong
+  deckArtwork: {fileID: 21300000, guid: a24a1207216e3f64da95519727bb4ab1, type: 3}
   cost: 30
   health: 200
   speed: 3
-  attack: 100
-  attackSpeed: 0.5
-  attackRadius: 8
+  attack: 45
+  attackSpeed: 0.7
+  attackRadius: 7
   spawnTime: 1
   type: 1
+  desc: sosok legenda Indonesia yang berwujud wanita cantik, bertubuh manusia dari
+    pinggang ke atas, dan berwujud ular dari pinggang ke bawah. Ia merupakan panglima
+    terkuat yang dimiliki oleh Kanjeng Ratu Kidul

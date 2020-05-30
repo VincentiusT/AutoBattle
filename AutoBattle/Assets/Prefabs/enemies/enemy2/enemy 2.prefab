@@ -308,7 +308,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &7303732919229299111
 MonoBehaviour:
@@ -476,7 +476,7 @@ MonoBehaviour:
   isKeepUpdatetingPath: 1
   deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
     type: 3}
-  enemyIdentity: {fileID: 11400000, guid: 49922d6692ed6ea48ae4b60f1a498239, type: 2}
+  enemyIdentity: {fileID: 11400000, guid: 67279e0c6ce5321439b889ab38058301, type: 2}
   towers: []
   playerMask:
     serializedVersion: 2

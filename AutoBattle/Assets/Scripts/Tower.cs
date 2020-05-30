@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public GameObject towerBreakParticle;
     public bool mainTowerPlayer;
     public bool mainTowerEnemy;
     private HealthBar healthBar;
+
     private int mainTowerHealth = 3000;
     private int towerHealth = 1200;
+
 
     private float health;
 
@@ -39,17 +42,20 @@ public class Tower : MonoBehaviour
             healthBar.setHealth((int)health);
     }
     
-    public void destroyTower()
+    public void destroyTower() 
     {
         if (mainTowerPlayer)
         {
             GameManager.instance.gameOver();
+            return;
         }
         else if (mainTowerEnemy)
         {
             GameManager.instance.win(true);
+            return;
         }
+        GameObject go = Instantiate(towerBreakParticle) as GameObject;
+        go.transform.position = transform.position;
         Destroy(gameObject);
-        
     }
 }

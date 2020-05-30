@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba06ef21cb43114498785c53a5bfe01e, type: 3}
   m_Name: timunMas
   m_EditorClassIdentifier: 
-  name: timunMas
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 38c7c8a6bbeeb7049bcf5d87123b2687, type: 3}
-  cost: 20
+  name: Timun Mas
+  deckArtwork: {fileID: 21300000, guid: 122628b96757cbc45b1811b41ae3f82d, type: 3}
+  cost: 10
   health: 100
   speed: 5
-  attack: 3
-  attackSpeed: 1
+  attack: 10
+  attackSpeed: 4
   attackRadius: 3
   spawnTime: 1
   type: 1
+  desc: Berasal dari cerita rakyat Jawa menceritakan kisah seorang gadis pemberani
+    yang mencoba untuk bertahan dan melarikan diri dari raksasa hijau jahat yang
+    mencoba untuk menangkap dan memakannya

@@ -90,8 +90,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5035164876378491080}
-  - component: {fileID: 5035164876378491087}
   - component: {fileID: 7564256077834718094}
+  - component: {fileID: 4232972146352353300}
   m_Layer: 13
   m_Name: Arjuna
   m_TagString: Untagged
@@ -115,31 +115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5035164876378491087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5035164876378491085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d58a0a44fc5c9a4199e2131e4ea9b43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDrawPath: 1
-  isKeepUpdatetingPath: 1
-  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
-    type: 3}
-  playerIdentity: {fileID: 11400000, guid: c5f8d24e0651dbd4f88348dd29b422a7, type: 2}
-  towers: []
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 14592
-  isPlaced: 0
 --- !u!136 &7564256077834718094
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -154,6 +129,32 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4232972146352353300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035164876378491085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1b6f321ef0a3c4e8b2ba32049f4417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawPath: 0
+  isKeepUpdatetingPath: 1
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
+  playerIdentity: {fileID: 11400000, guid: c5f8d24e0651dbd4f88348dd29b422a7, type: 2}
+  towers: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  isPlaced: 0
+  arrow: {fileID: 6100253364210853235, guid: c8470e9ebf881e145b21c9e2e8404bd8, type: 3}
 --- !u!1 &5035164876403146433
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +316,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &5035164876487247665
 MonoBehaviour:

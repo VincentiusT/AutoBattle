@@ -47,13 +47,13 @@ public class Deck : MonoBehaviour
         {
             heroesInDeck.Add(heroes[i]);
             heroesInDeckIdentity.Add(heroes[i].GetComponent<Player>().playerIdentity);
-            Debug.Log(heroes[i].name);
+            //Debug.Log(heroes[i].name);
         }
         for(int i = 4; i < heroes.Length; i++)
         {
             heroesInQueue.Enqueue(heroes[i]);
             heroesInQueueIdentity.Enqueue(heroes[i].GetComponent<Player>().playerIdentity);
-            Debug.Log(heroes[i].name);
+            //Debug.Log(heroes[i].name);
         }
         showDeck();
     }

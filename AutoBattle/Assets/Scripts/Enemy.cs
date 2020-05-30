@@ -35,7 +35,7 @@ public class Enemy : Unit
         towers.AddRange(GameObject.FindGameObjectsWithTag("PlayerTower"));
         
         healthBar = GetComponentInChildren<HealthBar>();
-
+        healthBar.setColor(Color.red);
         //child.GetComponent<SpriteRenderer>().sprite = enemyIdentity.artwork;
         attackDamage = enemyIdentity.attack;
         attackSpeed = enemyIdentity.attackSpeed;
@@ -79,7 +79,7 @@ public class Enemy : Unit
             currentPlayer = getClosestGameObject(players);
             if (currentPlayer.GetComponent<Player>().isPlaced)
             {
-                if (Vector3.Distance(transform.position, currentPlayer.position) < attackRadius)
+                if ((transform.position - currentPlayer.position).sqrMagnitude <= attackRadius * attackRadius)
                 {
                     if (Time.time >= nextAttackTime)
                     {
@@ -96,9 +96,9 @@ public class Enemy : Unit
         }
         else
         {
+
             if (isLocked && target == null)
             {
-                
                 isLocked = false;
                 towers.Remove(tempGO);
                 GameManager.instance.totalPlayerTower = towers.Count;
@@ -108,7 +108,7 @@ public class Enemy : Unit
             {
                 target = getClosestGameObject(towers);
             }
-            if (Vector3.Distance(transform.position, target.position) <= attackRadius)
+            if ((transform.position - target.position).sqrMagnitude <= attackRadius * attackRadius)
             {
                 speed = 0;
                 isLocked = true;
@@ -121,6 +121,7 @@ public class Enemy : Unit
             }
             else
             {
+                isAttacking = false;
                 speed = enemyIdentity.speed;
             }
         }
@@ -133,24 +134,24 @@ public class Enemy : Unit
         {
             isLocked = false;
             towers.Remove(tempGO);
-            GameManager.instance.totalPlayerTower = towers.Count;
         }
         if (towers.Count <= 0) return; 
         if (!isLocked) target = getClosestGameObject(towers);
-        if (Vector3.Distance(transform.position, target.position) <= attackRadius)
+        if (target == null) return;
+        if ((transform.position - target.position).sqrMagnitude <= attackRadius * attackRadius)
         {
             speed = 0;
             isLocked = true;
             tempGO = target.gameObject;
             if (Time.time >= nextAttackTime)
             {
-                Debug.Log("hit dari enemy");
                 target.GetComponent<Tower>().subtractHealth(attackDamage);
                 nextAttackTime = Time.time + 1f / attackSpeed;
             }
         }
         else
         {
+            isAttacking = false;
             speed = enemyIdentity.speed;
         }
     }
@@ -160,6 +161,12 @@ public class Enemy : Unit
         speed = 0;
         if (player != null)
         {
+            isAttacking = true;
+            Vector3 lookPos = player.transform.position - transform.position;
+            lookPos.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = rotation;
+
             player.GetComponent<Player>().subtractHealth(attackDamage);
         }
     }

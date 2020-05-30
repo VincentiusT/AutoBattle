@@ -7,12 +7,14 @@ public class HealthBar : MonoBehaviour
 {
 
     private Slider slider;
+    private Image healthColor;
 
     public int maxHealth;
 
     void Awake()
     {
         slider = GetComponent<Slider>();
+        healthColor = transform.GetChild(1).GetComponent<Image>();
     }
 
     public void setMaxHealth(int health)
@@ -24,6 +26,11 @@ public class HealthBar : MonoBehaviour
     public void setHealth(int health)
     {
         slider.value = health;
+    }
+
+    public void setColor(Color col)
+    {
+        healthColor.color = col;
     }
     
 }

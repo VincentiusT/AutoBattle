@@ -133,7 +133,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1085760463847996417
 MonoBehaviour:
@@ -270,8 +270,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085760463956808277}
-  - component: {fileID: 1085760463956808276}
   - component: {fileID: -7033629675803489958}
+  - component: {fileID: -5116694342086433412}
   m_Layer: 13
   m_Name: Banaspati
   m_TagString: Untagged
@@ -295,31 +295,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1085760463956808276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085760463956808273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d58a0a44fc5c9a4199e2131e4ea9b43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDrawPath: 1
-  isKeepUpdatetingPath: 1
-  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
-    type: 3}
-  playerIdentity: {fileID: 11400000, guid: 0e519a80c94e35246ba2e1ba6049f0a7, type: 2}
-  towers: []
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 14592
-  isPlaced: 0
 --- !u!136 &-7033629675803489958
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -334,6 +309,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5116694342086433412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085760463956808273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ccf8d127eac23743921568742bc24aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDrawPath: 0
+  isKeepUpdatetingPath: 1
+  deadParticle: {fileID: 4967998834787831711, guid: 644c7cae8e68b2945a1181e7867b753e,
+    type: 3}
+  playerIdentity: {fileID: 11400000, guid: 0e519a80c94e35246ba2e1ba6049f0a7, type: 2}
+  towers: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  isPlaced: 0
+  fireball: {fileID: 3664951345571876457, guid: 6d7230a226be4a942a1eb353d2fd273d,
+    type: 3}
 --- !u!1 &1085760464535300711
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,13 +462,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085760464914812302}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: -0}
-  m_LocalScale: {x: 2.11, y: 2.11, z: 2.11}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1085760463956808277}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &1085760464914812300
 SpriteRenderer:
   m_ObjectHideFlags: 0

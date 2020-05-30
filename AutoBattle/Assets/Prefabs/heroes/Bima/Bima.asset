@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Bima
   m_EditorClassIdentifier: 
   name: Bima
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 6f61a9a117dfc2a4b8c7b8d0b8e41a55, type: 3}
-  cost: 10
+  deckArtwork: {fileID: 21300000, guid: 920e738b587006040b4d5943abc1f657, type: 3}
+  cost: 40
   health: 800
-  speed: 3
-  attack: 3
-  attackSpeed: 2
+  speed: 2
+  attack: 25
+  attackSpeed: 1
   attackRadius: 2
   spawnTime: 1
   type: 1
+  desc: seorang tokoh protagonis dalam wiracarita Mahabharata. Ia merupakan putra
+    Kunti, dan dikenal sebagai tokoh Pandawa yang kuat, bersifat selalu kasar dan
+    menakutkan bagi musuh,walaupun sebenarnya berhati lembut

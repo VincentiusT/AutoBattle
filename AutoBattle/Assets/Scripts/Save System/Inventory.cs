@@ -6,6 +6,7 @@ using System;
 public class Inventory : MonoBehaviour
 {
     public static int star;
+    public static bool doneTutorial;
     public static bool load = true;
 
     private void Awake()
@@ -28,6 +29,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         star = data.star;
+        doneTutorial = data.doneTutorial;
         
     }
 }

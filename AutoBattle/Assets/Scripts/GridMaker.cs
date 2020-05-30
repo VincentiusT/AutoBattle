@@ -126,7 +126,6 @@ public class GridMaker : MonoBehaviour
                     penaltyMin = blurredPenalty;
             }
         }
-
     }
 
     public Node nodeFromWorldPoint(Vector3 worldPosition)

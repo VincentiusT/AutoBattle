@@ -6,23 +6,26 @@ public class Player : Unit
 {
     public GameObject deadParticle;
     public Identity playerIdentity;
+    [HideInInspector]
     public List<GameObject> towers;
     public LayerMask enemyMask;
     public LayerMask unwalkableMask;
+    [HideInInspector]
     public bool isPlaced=false;
 
     private Collider[] enemies;
     private GameObject child;
     private Transform currentEnemy;
-    private float attackRadius;
-    private float attackSpeed;
-    private float health;
-    private float spawnTime;
-    private int type;
-    private Sprite deckArtwork; 
+    protected float attackRadius;
+    protected float attackSpeed;
+    protected float health;
+    protected float spawnTime;
+    protected int type;
+    protected Sprite deckArtwork;
+    protected Animator playerAnim;
 
     private float radius = 6f;
-    private float attackDamage;
+    protected float attackDamage;
     private float nextAttackTime;
     private bool isLocked;
     private bool canAttack;
@@ -31,14 +34,13 @@ public class Player : Unit
     private HealthBar healthBar;
     private Transform cam;
 
-    private void Start()    
+    protected virtual void Start()    
     {
         cam = Camera.main.transform;
         child = transform.GetChild(0).gameObject;
         towers = new List<GameObject>();
         towers.AddRange(GameObject.FindGameObjectsWithTag("EnemyTower"));
         healthBar = GetComponentInChildren<HealthBar>();
-        //child.GetComponent<SpriteRenderer>().sprite = playerIdentity.artwork;
         attackDamage = playerIdentity.attack;
         attackSpeed = playerIdentity.attackSpeed;
         attackRadius = playerIdentity.attackRadius;
@@ -48,6 +50,7 @@ public class Player : Unit
         deckArtwork = playerIdentity.deckArtwork;
         type = playerIdentity.type;
         target = getClosestGameObject(towers);
+        playerAnim = GetComponentInChildren<Animator>();
 
         healthBar.setMaxHealth((int)health);
 
@@ -58,10 +61,10 @@ public class Player : Unit
         
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!isPlaced || !canAttack) return;
-        if(type==1) //attack normal
+        if (type==1) //attack normal
         {
             moveNormal();
         }
@@ -76,25 +79,27 @@ public class Player : Unit
         }
     }
 
-    private void moveNormal()
+    protected virtual void moveNormal()
     {
         if (!isLocked) enemies = checkEnemyInRadius(radius);
 
         if (enemies.Length > 0 && !isLocked)
         {
             currentEnemy = getClosestGameObject(enemies);
-            if (Vector3.Distance(transform.position, currentEnemy.position) <= attackRadius)
+            if ((transform.position - currentEnemy.position).sqrMagnitude <= attackRadius * attackRadius)
             {
                 speed = 0;
                 if (Time.time >= nextAttackTime)
                 {
-                    attack(currentEnemy.gameObject);
+                    attack(currentEnemy.gameObject,false);
                     nextAttackTime = Time.time + 1f / attackSpeed;
                 }
             }
             else
             {
+                isAttacking = false;
                 speed = playerIdentity.speed;
+                if (playerAnim != null) playerAnim.SetBool("move", true);
             }
             target = currentEnemy;
         }
@@ -104,10 +109,10 @@ public class Player : Unit
             {
                 isLocked = false;
                 towers.Remove(tempGO);
-                GameManager.instance.totalEnemyTower = towers.Count;
             }
             if (towers.Count <= 0) return;
             if (!isLocked) target = getClosestGameObject(towers);
+            if (target == null)return;
             if (Vector3.Distance(transform.position, target.position) <= attackRadius)
             {
                 speed = 0;
@@ -115,41 +120,46 @@ public class Player : Unit
                 tempGO = target.gameObject;
                 if (Time.time >= nextAttackTime)
                 {
-                    target.GetComponent<Tower>().subtractHealth(attackDamage);
+                    attack(target.gameObject,true);
+                    //target.GetComponent<Tower>().subtractHealth(attackDamage);
                     nextAttackTime = Time.time + 1f / attackSpeed;
                 }
             }
             else
             {
                 speed = playerIdentity.speed;
+                isAttacking = false;
+                if (playerAnim != null) playerAnim.SetBool("move", true);
             }
         }
     }
 
-    private void moveTower()
+    protected virtual void moveTower()
     {
         if (isLocked && target == null)
         {
             isLocked = false;
             towers.Remove(tempGO);
-            GameManager.instance.totalEnemyTower = towers.Count;
         }
         if (towers.Count <= 0) return;
         if (!isLocked) target = getClosestGameObject(towers);
-        if (Vector3.Distance(transform.position, target.position) <= attackRadius)
+        if (target == null) return;
+        if ((transform.position - target.position).sqrMagnitude <= attackRadius * attackRadius)
         {
             speed = 0;
             isLocked = true;
             tempGO = target.gameObject;
             if (Time.time >= nextAttackTime)
             {
-                target.GetComponent<Tower>().subtractHealth(attackDamage);
+                attack(target.gameObject, true);
                 nextAttackTime = Time.time + 1f / attackSpeed;
             }
         }
         else
         {
             speed = playerIdentity.speed;
+            isAttacking = false;
+            if (playerAnim != null) playerAnim.SetBool("move", true);
         }
     }
 
@@ -158,11 +168,21 @@ public class Player : Unit
         return Physics.OverlapSphere(transform.position, _radius, enemyMask);
     }
 
-    private void attack(GameObject enemy)
+    protected virtual void attack(GameObject enemy, bool isTower)
     {
-        if(enemy != null)
+        if (playerAnim != null)
         {
-            enemy.GetComponent<Enemy>().subtractHealth(attackDamage);
+            isAttacking = true;
+            playerAnim.SetBool("move", false);
+            playerAnim.SetTrigger("attack");
+        }
+        if (enemy != null)
+        {
+            Vector3 lookPos = enemy.transform.position - transform.position;
+            lookPos.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = rotation;
+            //transform.LookAt(enemy.transform);
         }
     }
 
@@ -173,7 +193,7 @@ public class Player : Unit
         healthBar.setHealth((int)health);
     }
 
-    void dead()
+    protected virtual void dead()
     {
         GameObject go = Instantiate(deadParticle) as GameObject;
         go.transform.position = transform.position;
@@ -187,8 +207,11 @@ public class Player : Unit
         isPlaced = true;
         yield return new WaitForSeconds(playerIdentity.spawnTime);
         canAttack = true;
+        if (playerAnim != null)
+        {
+            playerAnim.SetBool("move", true);
+        }
         StartCoroutine(updatePath());
     }
-
     
 }

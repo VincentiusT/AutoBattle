@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Gatotkaca
   m_EditorClassIdentifier: 
   name: Gatotkaca
-  artwork: {fileID: 0}
-  deckArtwork: {fileID: 21300000, guid: 3d21157eb53154340a9eaf6da948e7e4, type: 3}
-  cost: 20
-  health: 200
-  speed: 2
-  attack: 10
-  attackSpeed: 1
-  attackRadius: 2
+  deckArtwork: {fileID: 21300000, guid: 18019978b127fac49b818af173105348, type: 3}
+  cost: 25
+  health: 1000
+  speed: 1
+  attack: 35
+  attackSpeed: 2
+  attackRadius: 2.5
   spawnTime: 1
   type: 2
+  desc: seorang tokoh dalam wiracarita Mahabharata, putra Bimasena (Bima) atau Wrekodara
+    dari keluarga Pandawa. Ibunya bernama Hidimbi (Arimbi), berasal dari bangsa rakshasa.
+    Gatotkaca memiliki kekuatan luar biasa. Dalam perang besar di Kurukshetra, ia
+    menewaskan banyak sekutu Korawa.
